@@ -5,51 +5,73 @@
   padding: 12px 15px;
   display: flex;
   align-items: center;
-  line-height: 1.4;
-  background-color: #fff;
+  background-color: $white;
+  color: $text-color;
+  line-height: 24px;
   font-size: 14px;
+  overflow: hidden;
 }
 
-.zan-cell::after {
+.zan-cell:not(:last-child)::after {
   @mixin hairline;
   border-bottom-width: 1px;
   left: 15px;
   right: 0;
 }
 
-.zan-cell .zan-cell__icon {
+.zan-cell .zan-cell__left-icon {
+  font-size: 16px;
+  line-height: 24px;
   margin-right: 5px;
 }
-.zan-cell .zan-cell__icon:empty {
-  display: none
+
+.zan-cell .zan-cell__right-icon {
+  color: $gray-dark;
+  font-size: 12px;
+  line-height: 24px;
+  margin-left: 5px;
 }
 
-.zan-cell__bd {
+.zan-cell .zan-cell__icon:empty {
+  display: none;
+}
+
+.zan-cell__title, .zan-cell__value {
   flex: 1;
 }
-.zan-cell__text {
-  line-height: 24px;
-  font-size: 14px;
-}
-.zan-cell__desc {
+
+.zan-cell__label {
   line-height: 1.2;
   font-size: 12px;
-  color: #666;
+  color: $gray-darker;
 }
-.zan-cell__ft {
-  position: relative;
+
+.zan-cell__value {
+  overflow: hidden;
   text-align: right;
-  color: #666;
+  vertical-align: middle;
 }
+
+.zan-cell__value--alone {
+  text-align: left;
+}
+
+.zan-cell__ft {
+  color: $gray-darker;
+}
+
 .zan-cell__no-pading{
   padding: 0;
 }
+
 .zan-cell__no-pading .zan-cell__bd_padding {
   padding: 12px 0 12px 15px;
 }
+
 .zan-cell__no-pading .zan-cell__bd_padding .zan-form__input{
   height: 26px;
 }
+
 .zan-cell__no-pading .zan-cell__ft_padding {
   padding: 12px 15px 12px 0;
 }
@@ -58,23 +80,10 @@
   display: none;
 }
 
-.zan-cell--access .zan-cell__ft {
+.zan-cell--clickable .zan-cell__ft {
   padding-right: 13px;
 }
 
-.zan-cell--access .zan-cell__ft::after {
-  position: absolute;
-  top: 50%;
-  right: 2px;
-  content: " ";
-  display: inline-block;
-  height: 6px;
-  width: 6px;
-  border-width: 2px 2px 0 0;
-  border-color: #c8c8c8;
-  border-style: solid;
-  transform: translateY(-50%) matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-}
 .zan-cell--switch {
   padding-top: 6px;
   padding-bottom: 6px;
