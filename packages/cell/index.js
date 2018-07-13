@@ -31,8 +31,8 @@ Component({
       description: '只有点击 footer 区域才触发 tab 事件'
     },
     isLink: {
-      type: null,
-      value: '',
+      type: Boolean,
+      value: false,
       description: '是否展示右侧箭头并开启尝试以 url 跳转'
     },
     linkType: {
@@ -48,6 +48,7 @@ Component({
   data: {
     isLastCell: true
   },
+
   methods: {
     footerTap() {
       // 如果并没有设置只点击 footer 生效，那就不需要额外处理。cell 上有事件会自动处理
@@ -78,19 +79,13 @@ Component({
 
 // 处理跳转
 function doNavigate() {
-  const { url = '' } = this.data;
-  const type = typeof this.data.isLink;
+  const { url = '', isLink = false, linkType = '' } = this.data;
 
-  if (!this.data.isLink || !url || url === 'true' || url === 'false') return;
+  if (!isLink || !url || url === 'true' || url === 'false') return;
 
-  if (type !== 'boolean' && type !== 'string') {
-    warn('isLink 属性值必须是一个字符串或布尔值', this.data.isLink);
+  if (['navigateTo', 'redirectTo', 'switchTab', 'reLaunch'].indexOf(linkType) === -1) {
+    warn('linkType 属性可选值为 navigateTo，redirectTo，switchTab，reLaunch', linkType);
     return;
   }
-
-  if (['navigateTo', 'redirectTo', 'switchTab', 'reLaunch'].indexOf(this.data.linkType) === -1) {
-    warn('linkType 属性可选值为 navigateTo，redirectTo，switchTab，reLaunch', this.data.linkType);
-    return;
-  }
-  wx[this.data.linkType].call(wx, { url });
+  wx[linkType].call(wx, { url });
 }

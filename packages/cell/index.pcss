@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-.zan-cell:not(:last-child)::after {
+.zan-cell::after {
   @mixin hairline;
   border-bottom-width: 1px;
   left: 15px;
@@ -36,6 +36,10 @@
   display: none;
 }
 
+.zan-cell__title {
+  min-width: 90px;
+}
+
 .zan-cell__title, .zan-cell__value {
   flex: 1;
 }
@@ -50,10 +54,6 @@
   overflow: hidden;
   text-align: right;
   vertical-align: middle;
-}
-
-.zan-cell__value--alone {
-  text-align: left;
 }
 
 .zan-cell__ft {
@@ -78,10 +78,6 @@
 
 .zan-cell.last-cell::after {
   display: none;
-}
-
-.zan-cell--clickable .zan-cell__ft {
-  padding-right: 13px;
 }
 
 .zan-cell--switch {
