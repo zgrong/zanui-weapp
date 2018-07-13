@@ -1,22 +1,23 @@
 <view catchtap="cellTap" class="cell-class zan-cell {{ isLastCell ? 'last-cell' : '' }} {{ isLink ? 'zan-cell--clickable' : '' }}">
 
-  <view wx:if="{{ icon }}" class="zan-cell__left-icon">
-    <slot name="icon">
-      <zan-icon type="{{ icon }}" />
-    </slot>
+  <view class="zan-cell__left-icon">
+    <zan-icon wx:if="{{ icon }}" type="{{ icon }}" />
+    <slot wx:else name="icon"></slot>
   </view>
 
-  <view wx:if="{{ title }}" class="zan-cell__title">
-    <slot name="title">
+  <view class="zan-cell__title">
+    <block wx:if="{{ title }}">
       {{ title }}
       <view wx:if="{{ label }}" class="zan-cell__label">{{ label }}</view>
-    </slot>
+    </block>
+    <slot wx:else name="title"></slot>
   </view>
 
-  <view wx:if="{{ value }}" class="zan-cell__value">
-    <slot>
+  <view class="zan-cell__value">
+    <block wx:if="{{ value }}">
       <text>{{ value }}</text>
-    </slot>
+    </block>
+    <slot wx:else></slot>
   </view>
 
   <view bindtap="footerTap" class="zan-cell__ft">
