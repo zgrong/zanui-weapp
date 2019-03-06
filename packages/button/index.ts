@@ -3,9 +3,9 @@ import { button } from '../mixins/button';
 import { openType } from '../mixins/open-type';
 
 VantComponent({
-  classes: ['loading-class'],
-
   mixins: [button, openType],
+
+  classes: ['hover-class', 'loading-class'],
 
   props: {
     plain: Boolean,
@@ -14,6 +14,7 @@ VantComponent({
     square: Boolean,
     loading: Boolean,
     disabled: Boolean,
+    loadingText: String,
     type: {
       type: String,
       value: 'default'
@@ -21,21 +22,10 @@ VantComponent({
     size: {
       type: String,
       value: 'normal'
-    }
-  },
-
-  computed: {
-    classes(): string {
-      const { type, size, block, plain, round, square, loading, disabled } = this.data;
-      return this.classNames('van-button', `van-button--${type}`, `van-button--${size}`, {
-        'van-button--block': block,
-        'van-button--round': round,
-        'van-button--plain': plain,
-        'van-button--square': square,
-        'van-button--loading': loading,
-        'van-button--disabled': disabled,
-        'van-button--unclickable': disabled || loading
-      });
+    },
+    loadingSize: {
+      type: String,
+      value: '20px'
     }
   },
 

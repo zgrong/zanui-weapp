@@ -1,8 +1,11 @@
 import { VantComponent } from '../common/component';
+import { button } from '../mixins/button';
 import { openType } from '../mixins/open-type';
 
+type Action = 'confirm' | 'cancel' | 'overlay';
+
 VantComponent({
-  mixins: [openType],
+  mixins: [button, openType],
 
   props: {
     show: Boolean,
@@ -10,12 +13,13 @@ VantComponent({
     message: String,
     useSlot: Boolean,
     asyncClose: Boolean,
+    messageAlign: String,
     showCancelButton: Boolean,
     closeOnClickOverlay: Boolean,
     confirmButtonOpenType: String,
     zIndex: {
       type: Number,
-      value: 100
+      value: 2000
     },
     confirmButtonText: {
       type: String,
@@ -47,7 +51,7 @@ VantComponent({
   },
 
   watch: {
-    show(show) {
+    show(show: boolean) {
       !show && this.stopLoading();
     }
   },
@@ -65,7 +69,7 @@ VantComponent({
       this.onClose('overlay');
     },
 
-    handleAction(action) {
+    handleAction(action: Action) {
       if (this.data.asyncClose) {
         this.set({
           [`loading.${action}`]: true
@@ -90,12 +94,14 @@ VantComponent({
       });
     },
 
-    onClose(action) {
+    onClose(action: Action) {
       if (!this.data.asyncClose) {
         this.close();
       }
       this.$emit('close', action);
-      this.$emit(action);
+
+      //把 dialog 实例传递出去，可以通过 stopLoading() 在外部关闭按钮的 loading
+      this.$emit(action, { dialog: this });
 
       const callback = this.data[action === 'confirm' ? 'onConfirm' : 'onCancel'];
       if (callback) {

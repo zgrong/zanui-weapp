@@ -1,19 +1,21 @@
 import { VantComponent } from '../common/component';
+import { button } from '../mixins/button';
 import { openType } from '../mixins/open-type';
 VantComponent({
-  mixins: [openType],
+  mixins: [button, openType],
   props: {
     show: Boolean,
     title: String,
     message: String,
     useSlot: Boolean,
     asyncClose: Boolean,
+    messageAlign: String,
     showCancelButton: Boolean,
     closeOnClickOverlay: Boolean,
     confirmButtonOpenType: String,
     zIndex: {
       type: Number,
-      value: 100
+      value: 2000
     },
     confirmButtonText: {
       type: String,
@@ -84,8 +86,11 @@ VantComponent({
         this.close();
       }
 
-      this.$emit('close', action);
-      this.$emit(action);
+      this.$emit('close', action); //把 dialog 实例传递出去，可以通过 stopLoading() 在外部关闭按钮的 loading
+
+      this.$emit(action, {
+        dialog: this
+      });
       var callback = this.data[action === 'confirm' ? 'onConfirm' : 'onCancel'];
 
       if (callback) {

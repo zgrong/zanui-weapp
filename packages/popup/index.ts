@@ -1,11 +1,24 @@
 import { VantComponent } from '../common/component';
 import { transition } from '../mixins/transition';
+import { iphonex } from '../mixins/iphonex';
 
 VantComponent({
-  mixins: [transition(false)],
+  classes: [
+    'enter-class',
+    'enter-active-class',
+    'enter-to-class',
+    'leave-class',
+    'leave-active-class',
+    'leave-to-class'
+  ],
+
+  mixins: [transition(false), iphonex],
 
   props: {
-    transition: String,
+    transition: {
+      type: String,
+      observer: 'observeClass'
+    },
     customStyle: String,
     overlayStyle: String,
     zIndex: {
@@ -22,22 +35,13 @@ VantComponent({
     },
     position: {
       type: String,
-      value: 'center'
-    },
-    safeAreaInsetBottom: {
-      type: Boolean,
-      value: true
+      value: 'center',
+      observer: 'observeClass'
     }
   },
 
-  computed: {
-    popupClass() {
-      const { position, safeAreaInsetBottom, isIPhoneX } = this.data;
-      return this.classNames('custom-class', 'van-popup', {
-        [`van-popup--${position}`]: position,
-        [`van-popup--safe`]: isIPhoneX && safeAreaInsetBottom && position === 'bottom'
-      });
-    }
+  created() {
+    this.observeClass();
   },
 
   methods: {
@@ -47,6 +51,11 @@ VantComponent({
       if (this.data.closeOnClickOverlay) {
         this.$emit('close');
       }
+    },
+
+    observeClass() {
+      const { transition, position } = this.data;
+      this.updateClasses(transition || position);
     }
   }
 });

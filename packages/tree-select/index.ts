@@ -3,6 +3,15 @@ import { VantComponent } from '../common/component';
 const ITEM_HEIGHT = 44;
 
 VantComponent({
+  classes: [
+    'main-item-class',
+    'content-item-class',
+    'main-active-class',
+    'content-active-class',
+    'main-disabled-class',
+    'content-disabled-class'
+  ],
+
   props: {
     items: Array,
     mainActiveIndex: {
@@ -10,8 +19,7 @@ VantComponent({
       value: 0
     },
     activeId: {
-      type: Number,
-      value: 0
+      type: [Number, String]
     },
     maxHeight: {
       type: Number,
@@ -27,12 +35,13 @@ VantComponent({
 
   watch: {
     items() {
-      this.updateSubItems();
-      this.updateMainHeight();
+      this.updateSubItems().then(() => {
+        this.updateMainHeight();
+      });
     },
 
     maxHeight() {
-      this.updateItemHeight();
+      this.updateItemHeight(this.data.subItems);
       this.updateMainHeight();
     },
 
@@ -51,36 +60,37 @@ VantComponent({
     // 当一个导航被点击时
     onClickNav(event: Weapp.Event) {
       const { index } = event.currentTarget.dataset;
-      this.$emit('click-nav', { index });
+      const item = this.data.items[index];
+      if (!item.disabled) {
+        this.$emit('click-nav', { index });
+      }
     },
 
     // 更新子项列表
     updateSubItems() {
-      const selectedItem = this.data.items[this.data.mainActiveIndex] || {};
+      const { items, mainActiveIndex } = this.data;
+      const { children = [] } = items[mainActiveIndex] || {};
 
-      this.set({ subItems: selectedItem.children || [] });
-
-      this.updateItemHeight();
+      this.updateItemHeight(children);
+      return this.set({ subItems: children });
     },
 
     // 更新组件整体高度，根据最大高度和当前组件需要展示的高度来决定
     updateMainHeight() {
+      const { items = [], subItems = [] } = this.data;
       const maxHeight = Math.max(
-        this.data.items.length * ITEM_HEIGHT,
-        this.data.subItems.length * ITEM_HEIGHT
+        items.length * ITEM_HEIGHT,
+        subItems.length * ITEM_HEIGHT
       );
 
       this.set({ mainHeight: Math.min(maxHeight, this.data.maxHeight) });
     },
 
     // 更新子项列表高度，根据可展示的最大高度和当前子项列表的高度决定
-    updateItemHeight() {
-      this.set({
-        itemHeight: Math.min(
-          this.data.subItems.length * ITEM_HEIGHT,
-          this.data.maxHeight
-        )
-      });
+    updateItemHeight(subItems) {
+      const itemHeight = Math.min(subItems.length * ITEM_HEIGHT, this.data.maxHeight);
+
+      return this.set({ itemHeight });
     }
   }
 });

@@ -3,7 +3,7 @@ VantComponent({
   field: true,
   classes: ['node-class'],
   props: {
-    checked: Boolean,
+    checked: null,
     loading: Boolean,
     disabled: Boolean,
     activeColor: String,
@@ -11,6 +11,14 @@ VantComponent({
     size: {
       type: String,
       value: '30px'
+    },
+    activeValue: {
+      type: null,
+      value: true
+    },
+    inactiveValue: {
+      type: null,
+      value: false
     }
   },
   watch: {
@@ -20,18 +28,6 @@ VantComponent({
       });
     }
   },
-  computed: {
-    classes: function classes() {
-      return this.classNames('van-switch', {
-        'van-switch--on': this.data.checked,
-        'van-switch--disabled': this.data.disabled
-      });
-    },
-    style: function style() {
-      var backgroundColor = this.data.checked ? this.data.activeColor : this.data.inactiveColor;
-      return "font-size: " + this.data.size + "; " + (backgroundColor ? "background-color: " + backgroundColor : '');
-    }
-  },
   created: function created() {
     this.set({
       value: this.data.checked
@@ -39,10 +35,15 @@ VantComponent({
   },
   methods: {
     onClick: function onClick() {
+      var _this$data = this.data,
+          activeValue = _this$data.activeValue,
+          inactiveValue = _this$data.inactiveValue;
+
       if (!this.data.disabled && !this.data.loading) {
-        var checked = !this.data.checked;
-        this.$emit('input', checked);
-        this.$emit('change', checked);
+        var checked = this.data.checked === activeValue;
+        var value = checked ? inactiveValue : activeValue;
+        this.$emit('input', value);
+        this.$emit('change', value);
       }
     }
   }

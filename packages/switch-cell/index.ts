@@ -4,14 +4,25 @@ VantComponent({
   field: true,
 
   props: {
+    value: null,
     title: String,
     border: Boolean,
     checked: Boolean,
     loading: Boolean,
     disabled: Boolean,
+    activeColor: String,
+    inactiveColor: String,
     size: {
       type: String,
-      value: '26px'
+      value: '24px'
+    },
+    activeValue: {
+      type: null,
+      value: true
+    },
+    inactiveValue: {
+      type: null,
+      value: false
     }
   },
 

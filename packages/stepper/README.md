@@ -52,6 +52,7 @@
 | integer | 是否只允许输入整数 | `Boolean` | `false` |
 | disabled | 是否禁用 | `Boolean` | `false` |
 | disable-input | 是否禁用input框 | `Boolean` | `false` |
+| async-change | 异步变更，为 `true` 时input值不变化，仅触发事件 | `Boolean` | `false` |
 
 ### Event
 
@@ -61,6 +62,7 @@
 | bind:overlimit | 点击不可用的按钮时触发 | - |
 | bind:plus | 点击增加按钮时触发 | - |
 | bind:minus | 点击减少按钮时触发 | - |
+| bind:focus | 输入框聚焦时触发 | - |
 | bind:blur | 输入框失焦时触发 | - |
 
 ### 外部样式类

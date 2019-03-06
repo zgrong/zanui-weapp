@@ -1,5 +1,243 @@
 ## 更新日志
 
+## [v0.5.5](https://github.com/youzan/vant-weapp/tree/v0.5.5)
+`2019-02-26`
+
+**Improvements**
+
+- Transition: 实现由 animation 重构为 transition [\#1341](https://github.com/youzan/vant-weapp/pull/1341)
+- Transition: 支持通过外部样式类自定义过渡效果 [\#1341](https://github.com/youzan/vant-weapp/pull/1341)
+- Transition: 支持 duration 传入对象来定制进入和移出的持续时间 [\#1341](https://github.com/youzan/vant-weapp/pull/1341)
+- Popup: 支持 duration 传入对象来定制进入和移出的持续时间 [\#1341](https://github.com/youzan/vant-weapp/pull/1341)
+- Button: 新增 info 类型 [\#1340](https://github.com/youzan/vant-weapp/pull/1340)
+- Tab: 粘性布局实现重构为 IntersectionObserver，提升了性能，不再需要外部传入 scroll-top [\#1332](https://github.com/youzan/vant-weapp/pull/1332)
+- Tab: 优化标签栏横向滚动时的性能 [\#1332](https://github.com/youzan/vant-weapp/pull/1332)
+- Tab: 新增 nav-left、nav-right 插槽 [\#1332](https://github.com/youzan/vant-weapp/pull/1332)
+- Notify: 文本强制换行 [\#1325](https://github.com/youzan/vant-weapp/pull/1325)
+
+**Bug Fixes**
+
+- Transition: 修复部分机型动画初始化失败导致的位置偏移 [\#1341](https://github.com/youzan/vant-weapp/pull/1341)
+- Popup: 修复部分机型动画初始化失败导致的位置偏移 [\#1341](https://github.com/youzan/vant-weapp/pull/1341)
+- ActionSheet: 修复部分机型动画初始化失败导致的位置偏移 [\#1341](https://github.com/youzan/vant-weapp/pull/1341)
+
+**Internal**
+
+- 使用 miniprogram-api-typings 进行 wx api 类型定义 [\#1344](https://github.com/youzan/vant-weapp/pull/1344)
+
+## [v0.5.4](https://github.com/youzan/vant-weapp/tree/v0.5.4)
+`2019-02-18`
+
+**Improvements**
+
+- Dialog: 支持openType相关参数 [\#1321](https://github.com/youzan/vant-weapp/pull/1321)
+- Button: add business-id prop [\#1308](https://github.com/youzan/vant-weapp/pull/1308)
+- Button: 增加新属性 loading-text [\#1300](https://github.com/youzan/vant-weapp/pull/1300)
+- SwitchCell: 增加新属性 active-value、 inactive-value [\#1298](https://github.com/youzan/vant-weapp/pull/1298)
+- Switch: 增加新属性 active-value、 inactive-value [\#1297](https://github.com/youzan/vant-weapp/pull/1297)
+- Area: 增加新属性 confirm-button-text [\#1296](https://github.com/youzan/vant-weapp/pull/1296)
+
+**Bug Fixes**
+
+- ActionSheet: 取消按钮高度异常 [\#1311](https://github.com/youzan/vant-weapp/pull/1311)
+- Tab: 初始化时底部线条去除动画效果 [\#1295](https://github.com/youzan/vant-weapp/pull/1295)
+- Area: 修复有时初始化选项错误 [\#1317](https://github.com/youzan/vant-weapp/pull/1317)
+
+## [v0.5.3](https://github.com/youzan/vant-weapp/tree/v0.5.3)
+`2019-02-06`
+
+**Improvements**
+
+- 使用 hover-class 定义点击态样式 [\#1280](https://github.com/youzan/vant-weapp/pull/1280)
+- NoticeBar: 性能优化 [\#1278](https://github.com/youzan/vant-weapp/pull/1278)
+- Dialog: 提高 zIndex 默认值为 2000 [\#1276](https://github.com/youzan/vant-weapp/pull/1276)
+- TreeSelect: 优化性能 [\#1274](https://github.com/youzan/vant-weapp/pull/1274)
+- Button:  增加新属性 ariaLabel [\#1273](https://github.com/youzan/vant-weapp/pull/1273)
+- Button:  增加外部样式类 hover-class [\#1273](https://github.com/youzan/vant-weapp/pull/1273)
+- Button:  增加launchapp事件 [\#1273](https://github.com/youzan/vant-weapp/pull/1273)
+- GoodsActionIcon: 新增外部样式类icon-class、text-class [\#1272](https://github.com/youzan/vant-weapp/pull/1272)
+- Collapse: 新增外部样式类 title-class [\#1271](https://github.com/youzan/vant-weapp/pull/1271)
+- Search: 完善Search文档 [\#1228](https://github.com/youzan/vant-weapp/pull/1228)
+- 新增 live 图标
+- 新增 lock 图标
+- 新增 audio 图标
+- 新增 column 图标
+- 新增 replay 图标
+- 新增 shrink 图标
+- 新增 graphic 图标
+- 新增 invition 图标
+- 新增 ascending 图标
+- 新增 descending 图标
+- 新增 play-circle 图标
+- 新增 stop-circle 图标
+- 新增 pause-circle 图标
+- 新增 play-circle-o 图标
+- 新增 stop-circle-o 图标
+- 新增 pause-circle-o 图标
+- 新增 weapp-nav 图标
+
+
+**Bug Fixes**
+
+- Area: 修复特殊情况下初始化选项错误 [\#1285](https://github.com/youzan/vant-weapp/pull/1285)
+- Card: 修复centered属性无效，去除title、desc长度限制 [\#1270](https://github.com/youzan/vant-weapp/pull/1270)
+- Field: 修复清除图标未居中 [\#1267](https://github.com/youzan/vant-weapp/pull/1267)
+
+
+## [v0.5.2](https://github.com/youzan/vant-weapp/tree/v0.5.2)
+`2019-01-20`
+
+**Improvements**
+
+- Card: 更新价格部分样式 [\#1237](https://github.com/youzan/vant-weapp/pull/1237)
+- TreeSelect: 去除点击态样式 [\#1234](https://github.com/youzan/vant-weapp/pull/1234)
+- TabbarItem: 新增 custom-class 外部样式类 [\#1213](https://github.com/youzan/vant-weapp/pull/1213)
+- Toast: 支持在 message 中使用换行符 [\#1210](https://github.com/youzan/vant-weapp/pull/1210)
+
+**Bug Fixes**
+
+- Search: 修复readonly属性无效 [\#1238](https://github.com/youzan/vant-weapp/pull/1238)
+- Area: 修复getIndexes结果不符合预期 [\#1220](https://github.com/youzan/vant-weapp/pull/1220)
+- Tabs：回滚使用IntersectionObserver实现的sticky效果 [\#1217](https://github.com/youzan/vant-weapp/pull/1217)
+
+## [v0.5.1](https://github.com/youzan/vant-weapp/tree/v0.5.1)
+`2019-01-10`
+
+**Improvements**
+
+- Color: 基础绿色调整为微信绿 [\#1202](https://github.com/youzan/vant-weapp/pull/1202)
+- Icon: 新增 cart-circle 图标 [\#1204](https://github.com/youzan/vant-weapp/pull/1204)
+- Tab: 新增 line-height 属性 [\#1205](https://github.com/youzan/vant-weapp/pull/1205)
+- Tab: 优化 sticky 实现，不再需要手动传入 scrollTop 属性 [\#1197](https://github.com/youzan/vant-weapp/pull/1197)
+
+**Bug Fixes**
+
+- 修复 Area 修复初始选中项错误 [\#1196](https://github.com/youzan/vant-weapp/pull/1196)
+- 修复 Icon 部分图标的线条应使用圆角的问题 [\#1204](https://github.com/youzan/vant-weapp/pull/1204)
+- 修复 Field 手写键盘输入时未触发 change 事件的问题 [\#1200](https://github.com/youzan/vant-weapp/pull/1200)
+- 修复 Slider 改变 value 值时错误地触发了 drag 事件的问题 [\#1186](https://github.com/youzan/vant-weapp/pull/1186)
+
+
+## [v0.5.0](https://github.com/youzan/vant-weapp/tree/v0.5.0)
+`2019-01-05`
+
+**Breaking changes**
+
+在 0.5.0 版本中，我们统一图标规范并重绘了所有图标，同时增加约 100 个新图标。对于同一个图标，我们会提供`实底`和`线框`两种风格，以星星图标为例，`star`表示实底风格的星星，`star-o`表示线框风格的星星。
+
+<img width="375" height="124" src="//img.yzcdn.cn/vant/icon-style-1222.png">
+
+同时我们也对原有图标做了一定调整，具体改动如下：
+
+- 移除 edit-data
+- 移除 pending-deliver
+- 移除 pending-evaluate
+- 移除 points-mall
+- 移除 exchange-record
+- 重命名 warn 为 info
+- 重命名 check 为 circle
+- 重命名 add2 为 add-square
+- 重命名 question2 为 question
+- 重命名 password-view 为 eye
+- 重命名 password-not-view 为 closed-eye
+- 重命名 value-card 为 balance-o
+- 重命名 receive-gift 为 gift
+- 重命名 pending-orders 为 orders-o
+- 重命名 gift-card-pay 为 gift-card
+
+同时我们对下列组件的样式细节进行了优化：
+
+- Cell 单元格
+- Card 卡片
+- Tab 标签页
+- Toast 轻提示
+- TreeSelect 分类选择
+
+**Improvements**
+
+- DatetimePicker: 使用picker重构 [\#1187](https://github.com/youzan/vant-weapp/pull/1187)
+- Area: 使用picker重构 [\#1175](https://github.com/youzan/vant-weapp/pull/1175)
+- Toast: 更新背景色 [\#1171](https://github.com/youzan/vant-weapp/pull/1171)
+- Tab: 新增 dot、info、title-style 属性 [\#1156](https://github.com/youzan/vant-weapp/pull/1156)
+- DatetimePicker: 优化性能 [\#1164](https://github.com/youzan/vant-weapp/pull/1164)
+- Loading: 更新图标样式 [\#1154](https://github.com/youzan/vant-weapp/pull/1154)
+- Slider: 新增 active-color、inactive-color 属性 [\#1150](https://github.com/youzan/vant-weapp/pull/1150)
+- Slider: 新增 button slot [\#1148](https://github.com/youzan/vant-weapp/pull/1148)
+- Slider: 新增 drag 事件 [\#1148](https://github.com/youzan/vant-weapp/pull/1148)
+- Tabbar: 新增 active-color 属性 [\#1145](https://github.com/youzan/vant-weapp/pull/1145)
+- Stepper: 新增 async-change 属性 [\#1133](https://github.com/youzan/vant-weapp/pull/1133)
+- Cell: 更新样式 [\#1111](https://github.com/youzan/vant-weapp/pull/1111)
+- Field: 更新 input 样式 [\#1143](https://github.com/youzan/vant-weapp/pull/1143)
+
+**Bug Fixes**
+
+- Card: 修复 desc 样式问题 [\#1179](https://github.com/youzan/vant-weapp/pull/1179)
+- Picker: 修复设置defaultIndex时的选项样式问题 [\#1177](https://github.com/youzan/vant-weapp/pull/1177)
+- Stepper: 允许删除input值为空 [\#1160](https://github.com/youzan/vant-weapp/pull/1160)
+- GoodsAction: 修复 info 样式问题 [\#1123](https://github.com/youzan/vant-weapp/pull/1123)
+- Tab: span selector [\#1146](https://github.com/youzan/vant-weapp/pull/1146)
+- Collapse: 修复切换时没有动画效果 [\#1140](https://github.com/youzan/vant-weapp/pull/1140)
+- Tabs：修复开启animated时导致的滚动问题 [\#1030](https://github.com/youzan/vant-weapp/pull/1030)
+
+## [v0.4.10](https://github.com/youzan/vant-weapp/tree/v0.4.10)
+`2018-12-19`
+
+**Improvements**
+
+- Card: 更新样式 [\#1085](https://github.com/youzan/vant-weapp/pull/1085)
+- Card: 更新 thumb-mode 默认值为 aspectFit [\#1039](https://github.com/youzan/vant-weapp/pull/1039)
+- Field: 新增 show-confirm-bar 属性 [\#1040](https://github.com/youzan/vant-weapp/pull/1040)
+- TreeSelect: 更新样式 [\#1084](https://github.com/youzan/vant-weapp/pull/1084)
+- TreeSelect: 支持左侧选项禁用 [\#1084](https://github.com/youzan/vant-weapp/pull/1084)
+- TreeSelect: 增加外部样式类 [\#1084](https://github.com/youzan/vant-weapp/pull/1084)
+- Picker: 新增选择器组件 [\#1083](https://github.com/youzan/vant-weapp/pull/1083)
+- Tag: 新增 text-color 属性 [\#1077](https://github.com/youzan/vant-weapp/pull/1077)
+- Collapse: 更新 content 样式 [\#1069](https://github.com/youzan/vant-weapp/pull/1069)
+- Checkbox: 更新禁用态 label 颜色 [\#1068](https://github.com/youzan/vant-weapp/pull/1068)
+- Checkbox: 优化渲染性能 [\#1057](https://github.com/youzan/vant-weapp/pull/1057)
+- Dialog: 新增 message-align 属性 [\#1067](https://github.com/youzan/vant-weapp/pull/1067)
+- Dialog：新增 overlay、confirm、cancel 事件返回值 picker [\#1047](https://github.com/youzan/vant-weapp/pull/1047)
+- Info: 更新样式 [\#1066](https://github.com/youzan/vant-weapp/pull/1066)
+- Toast: 更新 icon 大小 [\#1064](https://github.com/youzan/vant-weapp/pull/1064)
+- SwitchCell: 新增 active-color、inactive-color 属性 [\#1061](https://github.com/youzan/vant-weapp/pull/1061)
+- Switch: 更新样式 [\#1065](https://github.com/youzan/vant-weapp/pull/1065)
+- Switch: 优化渲染性能 [\#1079](https://github.com/youzan/vant-weapp/pull/1079)
+- Area: 优化渲染性能 [\#1055](https://github.com/youzan/vant-weapp/pull/1055)
+- Cell: 优化渲染性能 [\#1050](https://github.com/youzan/vant-weapp/pull/1050)
+- Button: 优化渲染性能 [\#1049](https://github.com/youzan/vant-weapp/pull/1049)
+
+**Bug Fixes**
+
+- 修复 Collapse 动态修改内容时高度异常 [\#1094](https://github.com/youzan/vant-weapp/pull/1094)
+- 修复 Stepper 在iPad中或修改input高度时输入框样式异常 [\#1086](https://github.com/youzan/vant-weapp/pull/1086)
+- 修复 ActionSheet 动态设置actions时，渲染后button被打散 [\#1070](https://github.com/youzan/vant-weapp/pull/1070)
+
+## [v0.4.9](https://github.com/youzan/vant-weapp/tree/v0.4.9)
+`2018-12-07`
+
+**Improvements**
+
+- Tab: 新增 sticky 属性 [\#1019](https://github.com/youzan/vant-weapp/pull/1019)
+- Tab: 新增 swipeable 属性 [\#1019](https://github.com/youzan/vant-weapp/pull/1019)
+- Rate: 新增 icon-class 外部样式类 [\#1026](https://github.com/youzan/vant-weapp/pull/1026)
+- Icon: 优化内部 setData 次数 [\#1009](https://github.com/youzan/vant-weapp/pull/1009)
+- Popup: 适配 iPhoneX [\#989](https://github.com/youzan/vant-weapp/pull/989)
+- Tabbar: 适配 iPhoneX [\#989](https://github.com/youzan/vant-weapp/pull/989)
+- SubmitBar: 适配 iPhoneX [\#989](https://github.com/youzan/vant-weapp/pull/989)
+- ActionSheet: 适配 iPhoneX [\#989](https://github.com/youzan/vant-weapp/pull/989)
+- GoodsAction: 适配 iPhoneX [\#989](https://github.com/youzan/vant-weapp/pull/989)
+
+**Bug Fixes**
+
+- 修复 Collapse 箭头方向错误 [\#1014](https://github.com/youzan/vant-weapp/pull/1014)
+- 修复 Steps 在开发者工具体验评分中提示选择器错误的问题 [\#1015](https://github.com/youzan/vant-weapp/pull/1015)
+- 修复 Stepper 动态设置 value 时禁用状态未更新的问题 [\#1022](https://github.com/youzan/vant-weapp/pull/1022)
+- 修复 Popup 在 iOS 8 下动画错误的问题 [\#1008](https://github.com/youzan/vant-weapp/pull/1008) [\#1029](https://github.com/youzan/vant-weapp/pull/1029)
+- 修复 Transition 在 iOS 8 下动画错误的问题 [\#1008](https://github.com/youzan/vant-weapp/pull/1008) [\#1029](https://github.com/youzan/vant-weapp/pull/1029)
+- 修复 DatetimePicker 动态设置 type 后报错的问题 [\#1004](https://github.com/youzan/vant-weapp/pull/1004)
+- 修复劫持 setData 方法导致无法适配支付宝小程序的问题 [\#1023](https://github.com/youzan/vant-weapp/pull/1023)
+
+
 ## [v0.4.8](https://github.com/youzan/vant-weapp/tree/v0.4.8)
 `2018-12-03`
 

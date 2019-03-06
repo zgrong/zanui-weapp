@@ -42,14 +42,27 @@ Page({
 <van-switch checked="{{ checked }}" loading />
 ```
 
-#### 高级用法
+#### 自定义大小
+
+```html
+<van-switch checked="{{ checked }}" size="24px" />
+```
+
+#### 自定义颜色
 
 ```html
 <van-switch
-  size="36px"
   checked="{{ checked }}"
-  active-color="#4b0"
+  active-color="#07c160"
   inactive-color="#f44"
+/>
+```
+
+#### 异步控制
+
+```html
+<van-switch
+  checked="{{ checked }}"
   bind:change="onChange"
 />
 ```
@@ -79,12 +92,14 @@ Page({
 | 参数 | 说明 | 类型 | 默认值 |
 |-----------|-----------|-----------|-------------|
 | name | 在表单内提交时的标识符 | `String` | - |
-| checked | 开关选中状态 | `Boolean` | `false` |
+| checked | 开关选中状态 | `any` | `false` |
 | loading | 是否为加载状态 | `Boolean` | `false` |
 | disabled | 是否为禁用状态 | `Boolean` | `false` |
 | size | 开关尺寸 | `String` | `30px` |
 | active-color | 打开时的背景色 | `String` | `#1989fa` |
 | inactive-color | 关闭时的背景色 | `String` | `#fff` |
+| active-value | 打开时的值 | `any` | `true` |
+| inactive-value | 关闭时的值 | `any` | `false` |
 
 ### Event
 

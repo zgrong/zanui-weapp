@@ -17,12 +17,12 @@
 ```html
 <van-goods-action>
   <van-goods-action-icon
-    icon="chat"
+    icon="chat-o"
     text="客服"
     bind:click="onClickIcon"
   />
   <van-goods-action-icon
-    icon="cart"
+    icon="cart-o"
     text="购物车"
     bind:click="onClickIcon"
   />
@@ -56,9 +56,9 @@ Page({
 
 ```html
 <van-goods-action>
-  <van-goods-action-icon icon="chat" text="客服" />
-  <van-goods-action-icon icon="cart" text="购物车" info="5" />
-  <van-goods-action-icon icon="shop" text="店铺" />
+  <van-goods-action-icon icon="chat-o" text="客服" />
+  <van-goods-action-icon icon="cart-o" text="购物车" info="5" />
+  <van-goods-action-icon icon="shop-o" text="店铺" />
   <van-goods-action-button text="加入购物车" type="warning" />
   <van-goods-action-button text="立即购买" />
 </van-goods-action>
@@ -118,6 +118,19 @@ Page({
 | 事件名 | 说明 | 参数 |
 |-----------|-----------|-----------|
 | click | 按钮点击事件回调 | - |
+
+### GoodsActionIcon 外部样式类
+
+| 类名 | 说明 |
+|-----------|-----------|
+| icon-class | 图标样式类 |
+| text-class | 文字样式类 |
+
+### GoodsActionButton 外部样式类
+
+| 类名 | 说明 |
+|-----------|-----------|
+| custom-class | 根节点样式类 |
 
 ### 更新日志
 

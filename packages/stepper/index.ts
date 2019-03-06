@@ -14,9 +14,10 @@ VantComponent({
   ],
 
   props: {
-    value: Number,
+    value: null,
     integer: Boolean,
     disabled: Boolean,
+    asyncChange: Boolean,
     disableInput: Boolean,
     min: {
       type: null,
@@ -44,10 +45,16 @@ VantComponent({
 
   watch: {
     value(value) {
-      this.set({
-        value: this.range(value)
-      });
+      if (value !== '') {
+        this.set({
+          value: this.range(value)
+        });
+      }
     }
+  },
+
+  data: {
+    focus: false
   },
 
   created() {
@@ -57,6 +64,22 @@ VantComponent({
   },
 
   methods: {
+    onClickWrapper() {
+      if (!this.data.focus) {
+        this.setData({ focus: true });
+      }
+    },
+
+    onFocus(event: Weapp.Event) {
+      this.$emit('focus', event.detail);
+    },
+
+    onBlur(event: Weapp.Event) {
+      const value = this.range(this.data.value);
+      this.triggerInput(value);
+      this.$emit('blur', event.detail);
+    },
+
     // limit value range
     range(value) {
       return Math.max(Math.min(this.data.max, value), this.data.min);
@@ -79,12 +102,6 @@ VantComponent({
       this.$emit(type);
     },
 
-    onBlur(event: Weapp.Event) {
-      const value = this.range(this.data.value);
-      this.triggerInput(value);
-      this.$emit('blur', event);
-    },
-
     onMinus() {
       this.onChange('minus');
     },
@@ -93,8 +110,10 @@ VantComponent({
       this.onChange('plus');
     },
 
-    triggerInput(value) {
-      this.set({ value });
+    triggerInput(value: string) {
+      this.set({
+        value: this.data.asyncChange ? this.data.value : value
+      });
       this.$emit('change', value);
     }
   }

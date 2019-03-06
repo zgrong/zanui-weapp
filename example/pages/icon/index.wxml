@@ -4,10 +4,10 @@
 >
   <van-tab title="基础图标" custom-class="demo-tab-pane">
     <van-col
-      wx:for="{{ basic }}"
+      wx:for="{{ icons.basic }}"
       wx:key="index"
       custom-class="col"
-      span="8"
+      span="6"
     >
       <van-icon
         name="{{ item }}"
@@ -19,10 +19,10 @@
   </van-tab>
   <van-tab title="线框风格" custom-class="demo-tab-pane">
     <van-col
-      wx:for="{{ outline }}"
+      wx:for="{{ icons.outline }}"
       wx:key="index"
       custom-class="col"
-      span="8"
+      span="6"
     >
       <van-icon
         name="{{ item }}"
@@ -34,10 +34,10 @@
   </van-tab>
   <van-tab title="实底风格" custom-class="demo-tab-pane">
     <van-col
-      wx:for="{{ filled }}"
+      wx:for="{{ icons.filled }}"
       wx:key="index"
       custom-class="col"
-      span="8"
+      span="6"
     >
       <van-icon
         name="{{ item }}"

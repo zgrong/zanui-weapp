@@ -7,20 +7,26 @@ VantComponent({
   },
 
   props: {
+    dot: Boolean,
+    info: null,
     title: String,
-    disabled: Boolean
+    disabled: Boolean,
+    titleStyle: String
   },
 
   data: {
+    width: null,
     inited: false,
     active: false,
-    animated: false,
-    width: null
+    animated: false
   },
 
   watch: {
     title: 'update',
-    disabled: 'update'
+    disabled: 'update',
+    dot: 'update',
+    info: 'update',
+    titleStyle: 'update'
   },
 
   methods: {

@@ -3,8 +3,7 @@ import Page from '../../common/page';
 Page({
   data: {
     tabs: [1, 2, 3, 4],
-    tabsMore: [1, 2, 3, 4, 5, 6, 7, 8],
-    scrollTop: 0
+    tabsMore: [1, 2, 3, 4, 5, 6, 7, 8]
   },
 
   onClickDisabled(event) {
@@ -17,6 +16,13 @@ Page({
   onChange(event) {
     wx.showToast({
       title: `切换到标签 ${event.detail.index + 1}`,
+      icon: 'none'
+    });
+  },
+
+  onClickNavRight() {
+    wx.showToast({
+      title: '点击right nav',
       icon: 'none'
     });
   },

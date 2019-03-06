@@ -1,9 +1,14 @@
 import { VantComponent } from '../common/component';
 import { transition } from '../mixins/transition';
+import { iphonex } from '../mixins/iphonex';
 VantComponent({
-  mixins: [transition(false)],
+  classes: ['enter-class', 'enter-active-class', 'enter-to-class', 'leave-class', 'leave-active-class', 'leave-to-class'],
+  mixins: [transition(false), iphonex],
   props: {
-    transition: String,
+    transition: {
+      type: String,
+      observer: 'observeClass'
+    },
     customStyle: String,
     overlayStyle: String,
     zIndex: {
@@ -20,24 +25,12 @@ VantComponent({
     },
     position: {
       type: String,
-      value: 'center'
-    },
-    safeAreaInsetBottom: {
-      type: Boolean,
-      value: true
+      value: 'center',
+      observer: 'observeClass'
     }
   },
-  computed: {
-    popupClass: function popupClass() {
-      var _this$data = this.data,
-          position = _this$data.position,
-          safeAreaInsetBottom = _this$data.safeAreaInsetBottom,
-          isIPhoneX = _this$data.isIPhoneX;
-      return this.classNames('custom-class', 'van-popup', {
-        ["van-popup--" + position]: position,
-        ["van-popup--safe"]: isIPhoneX && safeAreaInsetBottom && position === 'bottom'
-      });
-    }
+  created: function created() {
+    this.observeClass();
   },
   methods: {
     onClickOverlay: function onClickOverlay() {
@@ -46,6 +39,12 @@ VantComponent({
       if (this.data.closeOnClickOverlay) {
         this.$emit('close');
       }
+    },
+    observeClass: function observeClass() {
+      var _this$data = this.data,
+          transition = _this$data.transition,
+          position = _this$data.position;
+      this.updateClasses(transition || position);
     }
   }
 });

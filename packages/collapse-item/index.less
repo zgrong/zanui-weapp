@@ -4,7 +4,7 @@
   &__title {
     .van-cell__right-icon {
       transform: rotate(90deg);
-      transition: 0.3s;
+      transition: @collapse-item-transition-duration;
     }
 
     &--expanded {
@@ -14,12 +14,12 @@
     }
 
     &--disabled {
-      & .van-cell,
-      & .van-cell__right-icon {
-        color: @gray !important;
+      .van-cell,
+      .van-cell__right-icon {
+        color: @collapse-item-title-disabled-color !important;
       }
 
-      &:active {
+      .van-cell--hover {
         background-color: @white !important;
       }
     }
@@ -27,12 +27,13 @@
 
   &__wrapper {
     overflow: hidden;
-    will-change: max-height;
-    transition: max-height 0.3s ease-in-out;
   }
 
   &__content {
-    padding: 15px;
-    background-color: @white;
+    padding: @collapse-item-content-padding;
+    font-size: @collapse-item-content-font-size;
+    line-height: @collapse-item-content-line-height;
+    color: @collapse-item-content-text-color;
+    background-color: @collapse-item-content-background-color;
   }
 }

@@ -1,6 +1,9 @@
 import { VantComponent } from '../common/component';
+import { iphonex } from '../mixins/iphonex';
 
 VantComponent({
+  mixins: [iphonex],
+
   relation: {
     name: 'tabbar-item',
     type: 'descendant',
@@ -20,6 +23,7 @@ VantComponent({
 
   props: {
     active: Number,
+    activeColor: String,
     fixed: {
       type: Boolean,
       value: true
@@ -27,26 +31,12 @@ VantComponent({
     zIndex: {
       type: Number,
       value: 1
-    },
-    safeAreaInsetBottom: {
-      type: Boolean,
-      value: true
     }
   },
 
   data: {
     items: [],
     currentActive: -1
-  },
-
-  computed: {
-    tabbarClass() {
-      const { fixed, isIPhoneX, safeAreaInsetBottom } = this.data;
-      return this.classNames('custom-class', 'van-tabbar', 'van-hairline--top-bottom', {
-        'van-tabbar--fixed': fixed,
-        'van-tabbar--safe': isIPhoneX && safeAreaInsetBottom
-      });
-    }
   },
 
   watch: {
@@ -63,7 +53,10 @@ VantComponent({
   methods: {
     setActiveItem() {
       this.data.items.forEach((item, index) => {
-        item.setActive(index === this.data.currentActive);
+        item.setActive({
+          active: index === this.data.currentActive,
+          color: this.data.activeColor
+        });
       });
     },
 
