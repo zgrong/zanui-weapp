@@ -2,9 +2,18 @@
 
 ### 使用指南
 在 app.json 或 index.json 中引入组件
+
+es6
 ```json
 "usingComponents": {
   "van-submit-bar": "path/to/vant-weapp/dist/submit-bar/index"
+}
+```
+
+es5
+```json
+"usingComponents": {
+  "van-submit-bar": "path/to/vant-weapp/lib/submit-bar/index"
 }
 ```
 
@@ -74,7 +83,7 @@
 | disabled | 是否禁用按钮 |  `Boolean` | `false` |
 | loading | 是否显示加载中的按钮 |  `Boolean` | `false` |
 | currency | 货币符号 |  `String` | `¥` |
-| safe-area-inset-bottom | 是否适配iPhoneX | `Boolean` | `true` |
+| safe-area-inset-bottom | 是否为iPhoneX留出底部安全距离 | `Boolean` | `true` |
 
 ### Event
 
@@ -98,10 +107,3 @@
 | price-class | 价格样式类 |
 | button-class | 按钮样式类 |
 | bar-class | 订单栏样式类 |
-
-### 更新日志
-
-| 版本 | 类型 | 内容 |
-|-----------|-----------|-----------|
-| 0.3.3 | feature | 新增组件 |
-| 0.3.4 | bugfix | 修复金额为空时仍然显示合计的问题 |

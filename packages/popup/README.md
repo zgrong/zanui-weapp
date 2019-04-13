@@ -2,11 +2,21 @@
 
 ### 使用指南
 在 app.json 或 index.json 中引入组件
+
+es6
 ```json
 "usingComponents": {
   "van-popup": "path/to/vant-weapp/dist/popup/index"
 }
 ```
+
+es5
+```json
+"usingComponents": {
+  "van-popup": "path/to/vant-weapp/lib/popup/index"
+}
+```
+
 ### 代码演示
 
 #### 基础用法
@@ -54,7 +64,8 @@ Page({
 | custom-style | 自定义弹出层样式 | `String` | `` |
 | overlay-style | 自定义背景蒙层样式 | `String` | `` |
 | close-on-click-overlay | 点击蒙层是否关闭 Popup | `Boolean` | `true` |
-| safe-area-inset-bottom | 是否适配iPhoneX | `Boolean` | `true` |
+| safe-area-inset-bottom | 是否为iPhoneX留出底部安全距离 | `Boolean` | `true` |
+| safe-area-inset-top | 是否留出顶部安全距离（状态栏高度 + 导航栏高度） | `Boolean` | `false` |
 
 ### Event
 
@@ -62,6 +73,7 @@ Page({
 |-----------|-----------|-----------|
 | bind:close | 蒙层关闭时触发 | - |
 | bind:click-overlay | 点击蒙层时触发 | - |
+| bind:transitionEnd | 蒙层关闭后触发 | - |
 
 ### 外部样式类
 

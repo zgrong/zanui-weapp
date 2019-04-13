@@ -2,11 +2,22 @@
 
 ### 使用指南
 在 app.json 或 index.json 中引入组件
+
+es6
 ```json
 "usingComponents": {
   "van-goods-action": "path/to/vant-weapp/dist/goods-action/index",
   "van-goods-action-icon": "path/to/vant-weapp/dist/goods-action-icon/index",
   "van-goods-action-button": "path/to/vant-weapp/dist/goods-action-button/index"
+}
+```
+
+es5
+```json
+"usingComponents": {
+  "van-goods-action": "path/to/vant-weapp/lib/goods-action/index",
+  "van-goods-action-icon": "path/to/vant-weapp/lib/goods-action-icon/index",
+  "van-goods-action-button": "path/to/vant-weapp/lib/goods-action-button/index"
 }
 ```
 
@@ -68,7 +79,7 @@ Page({
 
 | 参数 | 说明 | 类型 | 默认值 |
 |-----------|-----------|-----------|-------------|
-| safe-area-inset-bottom | 是否适配iPhoneX | `Boolean` | `true` |
+| safe-area-inset-bottom | 是否为iPhoneX留出底部安全距离 | `Boolean` | `true` |
 
 ### GoodsActionIcon API
 
@@ -80,7 +91,6 @@ Page({
 | url | 跳转链接 | `String` | - |
 | link-type | 链接跳转类型，可选值为 `redirectTo` `switchTab` `reLaunch` | `String` | `navigateTo` |
 | id | 标识符 | `String` | - |
-| type | 按钮类型，可选值为 `primary` `warning` `danger` | `String` | `default` |
 | disabled | 是否禁用按钮 | `Boolean` | `false` |
 | loading | 是否显示为加载状态 | `Boolean` | `false` |
 | open-type | 微信开放能力，具体支持可参考 [微信官方文档](https://mp.weixin.qq.com/debug/wxadoc/dev/component/button.html) | `String` | - |

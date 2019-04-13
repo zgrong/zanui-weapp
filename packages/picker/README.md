@@ -3,9 +3,18 @@
 
 ### 使用指南
 在 app.json 或 index.json 中引入组件
+
+es6
 ```json
 "usingComponents": {
   "van-picker": "path/to/vant-weapp/dist/picker/index"
+}
+```
+
+es5
+```json
+"usingComponents": {
+  "van-picker": "path/to/vant-weapp/lib/picker/index"
 }
 ```
 
@@ -112,7 +121,7 @@ Page({
 
   onChange(event) {
     const { picker, value, index } = event.detail;
-    picker.setColumnValues(1, citys[values[0]]);
+    picker.setColumnValues(1, citys[value[0]]);
   }
 });
 ```

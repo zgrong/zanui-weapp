@@ -2,10 +2,20 @@
 
 ### 使用指南
 在 app.json 或 index.json 中引入组件
+
+es6
 ```json
 "usingComponents": {
   "van-tab": "path/to/vant-weapp/dist/tab/index",
   "van-tabs": "path/to/vant-weapp/dist/tabs/index"
+}
+```
+
+es5
+```json
+"usingComponents": {
+  "van-tab": "path/to/vant-weapp/lib/tab/index",
+  "van-tabs": "path/to/vant-weapp/lib/tabs/index"
 }
 ```
 
@@ -203,3 +213,6 @@ Page({
 | 类名 | 说明 |
 |-----------|-----------|
 | custom-class | 根节点样式类 |
+| nav-class | 标签栏样式类 |
+| tab-class | 标签样式类 |
+| tab-active-class | 标签激活态样式类 |

@@ -2,9 +2,18 @@
 
 ### 使用指南
 在 json 文件中配置button组件
+
+es6
 ```json
 "usingComponents": {
   "van-button": "path/to/vant-weapp/dist/button/index"
+}
+```
+
+es5
+```json
+"usingComponents": {
+  "van-button": "path/to/vant-weapp/lib/button/index"
 }
 ```
 
@@ -24,9 +33,20 @@
 
 #### 朴素按钮
 
+通过`plain`属性将按钮设置为朴素按钮，朴素按钮的文字为按钮颜色，背景为白色
+
 ```html
 <van-button plain type="primary">朴素按钮</van-button>
 <van-button plain type="danger">朴素按钮</van-button>
+```
+
+#### 细边框
+
+设置`hairline`属性可以开启 0.5px 边框，基于伪类实现
+
+```html
+<van-button plain hairline type="primary">细边框按钮</van-button>
+<van-button plain hairline type="danger">细边框按钮</van-button>
 ```
 
 #### 禁用状态
@@ -40,14 +60,14 @@
 
 #### 加载状态
 
-```html 
+```html
 <van-button loading type="primary" />
 <van-button loading type="danger" loading-text="加载中..." />
 ```
 
 #### 按钮形状
 
-```html 
+```html
 <van-button square type="primary">方形按钮</van-button>
 <van-button round type="danger">圆形按钮</van-button>
 ```
@@ -55,7 +75,7 @@
 #### 按钮尺寸
 支持`large`、`normal`、`small`、`mini`四种尺寸，默认为`normal`
 
-```html 
+```html
 <van-button size="large">大号按钮</van-button>
 <van-button size="normal">普通按钮</van-button>
 <van-button size="small">小型按钮</van-button>
@@ -74,6 +94,7 @@
 | round | 是否为圆形按钮 | `Boolean` | `false` |
 | square | 是否为方形按钮 | `Boolean` | `false` |
 | disabled | 是否禁用按钮 | `Boolean` | `false` |
+| hairline | 是否使用 0.5px 边框 | `Boolean` | `false` |
 | loading | 是否显示为加载状态 | `Boolean` | `false` |
 | loading-text | 加载状态提示文字 | `String` | - |
 | loading-size | 加载图标大小 | `String` | `20px` |
