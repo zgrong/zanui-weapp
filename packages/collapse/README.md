@@ -77,7 +77,7 @@ Page({
   },
   onChange(event) {
     this.setData({
-      activeNames: event.detail
+      activeName: event.detail
     });
   }
 });
@@ -100,7 +100,7 @@ Page({
 ``` javascript
 Page({
   data: {
-    activeName: ['1']
+    activeNames: ['1']
   },
   onChange(event) {
     this.setData({
@@ -135,6 +135,7 @@ Page({
 | label | 标题栏描述信息 | `String` | - |
 | border | 是否显示内边框 | `Boolean` | `true` |
 | is-link | 是否展示标题栏右侧箭头并开启点击反馈 | `Boolean` | `true` |
+| clickable | 是否开启点击反馈 | `Boolean` | `false` |
 | disabled | 是否禁用面板 | `Boolean` | `false` |
 
 ### CollapseItem Slot
