@@ -16,6 +16,10 @@ export default [
         title: 'Icon 图标'
       },
       {
+        path: '/image',
+        title: 'Image 图片'
+      },
+      {
         path: '/col',
         title: 'Layout 布局'
       },
@@ -74,8 +78,8 @@ export default [
         title: 'Switch 开关'
       },
       {
-        path: '/switch-cell',
-        title: 'SwitchCell 开关单元格'
+        path: '/uploader',
+        title: 'Uploader 文件上传'
       }
     ]
   },
@@ -92,12 +96,20 @@ export default [
         title: 'Dialog 弹出框'
       },
       {
+        path: '/dropdown-menu',
+        title: 'DropdownMenu 下拉菜单'
+      },
+      {
         path: '/loading',
         title: 'Loading 加载'
       },
       {
         path: '/notify',
         title: 'Notify 消息通知'
+      },
+      {
+        path: '/overlay',
+        title: 'Overlay 遮罩层'
       },
       {
         path: '/swipe-cell',
@@ -114,8 +126,20 @@ export default [
     icon: 'photo-o',
     list: [
       {
+        path: '/circle',
+        title: 'Circle 进度条'
+      },
+      {
         path: '/collapse',
         title: 'Collapse 折叠面板'
+      },
+      {
+        path: '/count-down',
+        title: 'CountDown 倒计时'
+      },
+      {
+        path: '/divider',
+        title: 'Divider 分割线'
       },
       {
         path: '/notice-bar',
@@ -130,8 +154,16 @@ export default [
         title: 'Progress 进度条'
       },
       {
+        path: '/skeleton',
+        title: 'Skeleton 骨架屏'
+      },
+      {
         path: '/steps',
         title: 'Steps 步骤条'
+      },
+      {
+        path: '/sticky',
+        title: 'Sticky 粘性布局'
       },
       {
         path: '/tag',
@@ -148,8 +180,12 @@ export default [
     icon: 'https://img.yzcdn.cn/vant/nav-0401.svg',
     list: [
       {
-        path: '/badge',
-        title: 'Badge 徽章'
+        path: '/grid',
+        title: 'Grid 宫格'
+      },
+      {
+        path: '/sidebar',
+        title: 'Sidebar 侧边导航'
       },
       {
         path: '/nav-bar',

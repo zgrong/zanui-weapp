@@ -1,26 +1,19 @@
-## Transition 动画
+# Transition 动画
 
-### 使用指南
+### 引入
 
-在 app.json 或 index.json 中引入组件
+在`app.json`或`index.json`中引入组件，详细介绍见[快速上手](#/quickstart#yin-ru-zu-jian)
 
-es6
 ```json
 "usingComponents": {
   "van-transition": "path/to/vant-weapp/dist/transition/index"
 }
 ```
 
-es5
-```json
-"usingComponents": {
-  "van-transition": "path/to/vant-weapp/lib/transition/index"
-}
-```
+## 代码演示
 
-### 代码演示
+### 基础用法
 
-#### 基础用法
 将元素包裹在 transition 组件内，在元素展示/隐藏时，会有相应的过渡动画
 
 ```html
@@ -29,14 +22,15 @@ es5
 </van-transition>
 ```
 
-#### 动画类型
+### 动画类型
+
 transition 组件内置了多种动画，可以通过`name`字段指定动画类型
 
 ```html
 <van-transition name="fade-up" />
 ```
 
-#### 高级用法
+### 高级用法
 
 可以通过外部样式类自定义过渡效果，还可以定制进入和移出的持续时间：
 
@@ -65,14 +59,27 @@ transition 组件内置了多种动画，可以通过`name`字段指定动画类
 }
 ```
 
-### API
+## API
 
-| 参数 | 说明 | 类型 | 默认值 |
-|-----------|-----------|-----------|-------------|
-| name | 动画类型 | `String` | `fade`|
-| show | 是否展示组件 | `Boolean` | `true` |
-| duration | 动画时长，单位为毫秒 | `Number | Object` | `300` |
-| custom-style | 自定义样式 | `String` | - |
+### Props
+
+| 参数 | 说明 | 类型 | 默认值 | 版本 |
+|-----------|-----------|-----------|-------------|-------------|
+| name | 动画类型 | *string* | `fade`| - |
+| show | 是否展示组件 | *boolean* | `true` | - |
+| duration | 动画时长，单位为毫秒 | *number \| object* | `300` | - |
+| custom-style | 自定义样式 | *string* | - | - |
+
+### Events
+
+| 事件名 | 说明 | 参数 |
+|-----------|-----------|-----------|
+| bind:before-enter | 进入前触发 | - |
+| bind:enter | 进入中触发 | - |
+| bind:after-enter | 进入后触发 | - |
+| bind:before-leave | 离开前触发 | - |
+| bind:leave | 离开中触发 | - |
+| bind:after-leave | 离开后触发 | - |
 
 ### 外部样式类
 

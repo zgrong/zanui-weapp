@@ -1,25 +1,18 @@
-## SubmitBar 提交订单栏
+# SubmitBar 提交订单栏
 
-### 使用指南
-在 app.json 或 index.json 中引入组件
+### 引入
 
-es6
+在`app.json`或`index.json`中引入组件，详细介绍见[快速上手](#/quickstart#yin-ru-zu-jian)
+
 ```json
 "usingComponents": {
   "van-submit-bar": "path/to/vant-weapp/dist/submit-bar/index"
 }
 ```
 
-es5
-```json
-"usingComponents": {
-  "van-submit-bar": "path/to/vant-weapp/lib/submit-bar/index"
-}
-```
+## 代码演示
 
-### 代码演示
-
-#### 基础用法
+### 基础用法
 
 ```html
 <van-submit-bar
@@ -29,7 +22,8 @@ es5
 />
 ```
 
-#### 禁用状态
+### 禁用状态
+
 禁用状态下不会触发`submit`事件
 
 ```html
@@ -43,7 +37,8 @@ es5
 />
 ```
 
-#### 加载状态
+### 加载状态
+
 加载状态下不会触发`submit`事件
 
 ```html
@@ -55,7 +50,8 @@ es5
 />
 ```
 
-#### 高级用法
+### 高级用法
+
 通过插槽插入自定义内容
 
 ```html
@@ -72,23 +68,26 @@ es5
 </van-submit-bar>
 ```
 
-### API
+## API
 
-| 参数 | 说明 | 类型 | 默认值 |
-|-----------|-----------|-----------|-------------|
-| price | 价格（单位分） |  `Number` | - |
-| label | 价格文案 |  `String` | `合计：` |
-| button-text | 按钮文字 | `String` | - |
-| button-type | 按钮类型 |  `String` | `danger` |
-| tip | 提示文案 |  `String` / `Boolean` | - |
-| tip-icon | 图标名称或图片链接，可选值见 Icon 组件 | `String` | - |
-| disabled | 是否禁用按钮 |  `Boolean` | `false` |
-| loading | 是否显示加载中的按钮 |  `Boolean` | `false` |
-| currency | 货币符号 |  `String` | `¥` |
-| safe-area-inset-bottom | 是否为 iPhoneX 留出底部安全距离 | `Boolean` | `true` |
-| decimal-length | 价格小数点后位数 | `Number` | `2` |
+### Props
 
-### Event
+| 参数 | 说明 | 类型 | 默认值 | 版本 |
+|-----------|-----------|-----------|-------------|-------------|
+| price | 价格（单位分） | *number* | - | - |
+| label | 价格文案 | *string* | `合计：` | - |
+| suffix-label | 价格右侧文案 | *string* | - | - |
+| button-text | 按钮文字 | *string* | - | - |
+| button-type | 按钮类型 |  *string* | `danger` | - |
+| tip | 提示文案 | *string \| boolean* | - | - |
+| tip-icon | 图标名称或图片链接，可选值见 [Icon 组件](#/icon) | *string* | - | - |
+| disabled | 是否禁用按钮 | *boolean* | `false` | - |
+| loading | 是否显示加载中的按钮 | *boolean* | `false` | - |
+| currency | 货币符号 | *string* | `¥` | - |
+| safe-area-inset-bottom | 是否为 iPhoneX 留出底部安全距离 | *boolean* | `true` | - |
+| decimal-length | 价格小数点后位数 | *number* | `2` | - |
+
+### Events
 
 | 事件名 | 说明 | 参数 |
 |-----------|-----------|-----------|
@@ -100,7 +99,7 @@ es5
 |-----------|-----------|
 | - | 自定义订单栏左侧内容 |
 | top | 自定义订单栏上方内容 |
-| tip | 提示文案中的额外操作和说明，`tip` 不为空时才显示 |
+| tip | 提示文案中的额外操作和说明 |
 
 ### 外部样式类
 

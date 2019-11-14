@@ -1,31 +1,59 @@
 import { VantComponent } from '../common/component';
+import { addUnit } from '../common/utils';
 VantComponent({
     field: true,
     relation: {
         name: 'radio-group',
-        type: 'ancestor'
+        type: 'ancestor',
+        linked(target) {
+            this.parent = target;
+        },
+        unlinked() {
+            this.parent = null;
+        }
     },
     classes: ['icon-class', 'label-class'],
     props: {
-        name: null,
         value: null,
         disabled: Boolean,
+        useIconSlot: Boolean,
+        checkedColor: String,
+        labelPosition: {
+            type: String,
+            value: 'right'
+        },
         labelDisabled: Boolean,
-        labelPosition: String,
-        checkedColor: String
+        shape: {
+            type: String,
+            value: 'round'
+        },
+        iconSize: {
+            type: null,
+            observer: 'setIconSizeUnit'
+        }
+    },
+    data: {
+        iconSizeWithUnit: '20px'
     },
     methods: {
+        setIconSizeUnit(val) {
+            this.setData({
+                iconSizeWithUnit: addUnit(val)
+            });
+        },
         emitChange(value) {
-            const instance = this.getRelationNodes('../radio-group/index')[0] || this;
+            const instance = this.parent || this;
             instance.$emit('input', value);
             instance.$emit('change', value);
         },
         onChange(event) {
-            this.emitChange(event.detail.value);
+            console.log(event);
+            this.emitChange(this.data.name);
         },
         onClickLabel() {
-            if (!this.data.disabled && !this.data.labelDisabled) {
-                this.emitChange(this.data.name);
+            const { disabled, labelDisabled, name } = this.data;
+            if (!disabled && !labelDisabled) {
+                this.emitChange(name);
             }
         }
     }

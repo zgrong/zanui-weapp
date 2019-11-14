@@ -2,6 +2,7 @@ import { VantComponent } from '../common/component';
 import { link } from '../mixins/link';
 import { button } from '../mixins/button';
 import { openType } from '../mixins/open-type';
+import { Weapp } from 'definitions/weapp';
 
 VantComponent({
   classes: ['icon-class', 'text-class'],
@@ -10,6 +11,7 @@ VantComponent({
 
   props: {
     text: String,
+    dot: Boolean,
     info: String,
     icon: String,
     disabled: Boolean,

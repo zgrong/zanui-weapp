@@ -1,18 +1,35 @@
 import { VantComponent } from '../common/component';
+import { addUnit } from '../common/utils';
 
 VantComponent({
   props: {
-    size: {
-      type: String,
-      value: '30px'
-    },
+    color: String,
+    vertical: Boolean,
     type: {
       type: String,
       value: 'circular'
     },
-    color: {
+    size: {
       type: String,
-      value: '#c9c9c9'
+      observer: 'setSizeWithUnit'
+    },
+    textSize: {
+      type: String,
+      observer: 'setTextSizeWithUnit'
+    }
+  },
+
+  methods: {
+    setSizeWithUnit(size: string | number): void {
+      this.setData({
+        sizeWithUnit: addUnit(size)
+      });
+    },
+
+    setTextSizeWithUnit(size: string | number): void {
+      this.set({
+        textSizeWithUnit: addUnit(size)
+      });
     }
   }
 });

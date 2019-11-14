@@ -1,9 +1,7 @@
 import { VantComponent } from '../common/component';
-import { safeArea } from '../mixins/safe-area';
+import { Weapp } from 'definitions/weapp';
 
 VantComponent({
-  mixins: [safeArea()],
-
   classes: [
     'bar-class',
     'price-class',
@@ -11,10 +9,16 @@ VantComponent({
   ],
 
   props: {
-    tip: null,
+    tip: {
+      type: null,
+      observer: 'updateTip'
+    },
     tipIcon: String,
     type: Number,
-    price: null,
+    price: {
+      type: null,
+      observer: 'updatePrice'
+    },
     label: String,
     loading: Boolean,
     disabled: Boolean,
@@ -29,26 +33,29 @@ VantComponent({
     },
     decimalLength: {
       type: Number,
-      value: 2
-    }
-  },
-
-  computed: {
-    hasPrice() {
-      return typeof this.data.price === 'number';
+      value: 2,
+      observer: 'updatePrice'
     },
-
-    priceStr() {
-      return (this.data.price / 100).toFixed(this.data.decimalLength);
-    },
-
-    tipStr() {
-      const { tip } = this.data;
-      return typeof tip === 'string' ? tip : '';
+    suffixLabel: String,
+    safeAreaInsetBottom: {
+      type: Boolean,
+      value: true
     }
   },
 
   methods: {
+    updatePrice() {
+      const { price, decimalLength } = this.data;
+      this.setData({
+        hasPrice: typeof price === 'number',
+        priceStr: (price / 100).toFixed(decimalLength)
+      });
+    },
+
+    updateTip() {
+      this.setData({ hasTip: typeof this.data.tip === 'string' });
+    },
+
     onSubmit(event: Weapp.Event) {
       this.$emit('submit', event.detail);
     }

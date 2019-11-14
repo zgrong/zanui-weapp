@@ -1,5 +1,6 @@
 import { basic } from '../mixins/basic';
 import { observe } from '../mixins/observer/index';
+import { VantComponentOptions, CombinedComponentInstance } from 'definitions/index';
 
 function mapKeys(source: object, target: object, map: object) {
   Object.keys(map).forEach(key => {
@@ -9,14 +10,12 @@ function mapKeys(source: object, target: object, map: object) {
   });
 }
 
-function VantComponent<Data, Props, Watch, Methods, Computed>(
+function VantComponent<Data, Props, Methods>(
   vantOptions: VantComponentOptions<
     Data,
     Props,
-    Watch,
     Methods,
-    Computed,
-    CombinedComponentInstance<Data, Props, Watch, Methods, Computed>
+    CombinedComponentInstance<Data, Props, Methods>
   > = {}
 ): void {
   const options: any = {};

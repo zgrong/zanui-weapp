@@ -1,26 +1,18 @@
-## NavBar 导航栏
+# NavBar 导航栏
 
-### 使用指南
+### 引入
 
-在 app.json 或 index.json 中引入组件
+在`app.json`或`index.json`中引入组件，详细介绍见[快速上手](#/quickstart#yin-ru-zu-jian)
 
-es6
 ```json
 "usingComponents": {
   "van-nav-bar": "path/to/vant-weapp/dist/nav-bar/index"
 }
 ```
 
-es5
-```json
-"usingComponents": {
-  "van-nav-bar": "path/to/vant-weapp/lib/nav-bar/index"
-}
-```
+## 代码演示
 
-### 代码演示
-
-#### 基础用法
+### 基础用法
 
 ```html
 <van-nav-bar
@@ -44,7 +36,7 @@ Page({
 });
 ```
 
-#### 高级用法
+### 高级用法
 通过 slot 定制内容
 
 ```html
@@ -53,19 +45,20 @@ Page({
 </van-nav-bar>
 ```
 
+## API
 
-### API
+### Props
 
-| 参数 | 说明 | 类型 | 默认值 |
-|-----------|-----------|-----------|-------------|
-| title | 标题 | `String` | `''` |
-| left-text | 左侧文案 | `String` | `''` |
-| right-text | 右侧文案 | `String` | `''` |
-| left-arrow | 是否显示左侧箭头 | `Boolean` | `false` |
-| fixed | 是否固定在顶部 | `Boolean` | `false` |
-| border | 是否显示下边框 | `Boolean` | `true` |
-| z-index | 元素 z-index | `Number` | `1` |
-| safe-area-inset-top | 是否留出顶部安全距离（状态栏高度） | `Boolean` | `true` |
+| 参数 | 说明 | 类型 | 默认值 | 版本 |
+|-----------|-----------|-----------|-------------|-------------|
+| title | 标题 | *string* | `''` | - |
+| left-text | 左侧文案 | *string* | `''` | - |
+| right-text | 右侧文案 | *string* | `''` | - |
+| left-arrow | 是否显示左侧箭头 | *boolean* | `false` | - |
+| fixed | 是否固定在顶部 | *boolean* | `false` | - |
+| border | 是否显示下边框 | *boolean* | `true` | - |
+| z-index | 元素 z-index | *number* | `1` | - |
+| safe-area-inset-top | 是否留出顶部安全距离（状态栏高度） | *boolean* | `true` | - |
 
 ### Slot
 
@@ -75,7 +68,7 @@ Page({
 | left | 自定义左侧区域内容 |
 | right | 自定义右侧区域内容 |
 
-### Event
+### Events
 
 | 事件名 | 说明 | 参数 |
 |-----------|-----------|-----------|

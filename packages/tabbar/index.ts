@@ -1,71 +1,75 @@
 import { VantComponent } from '../common/component';
-import { safeArea } from '../mixins/safe-area';
 
 VantComponent({
-  mixins: [safeArea()],
-
   relation: {
     name: 'tabbar-item',
     type: 'descendant',
-    linked(target: Weapp.Component) {
-      this.children = this.children || [];
+    linked(target) {
       this.children.push(target);
-      this.setActiveItem();
+      target.parent = this;
+      target.updateFromParent();
     },
-    unlinked(target: Weapp.Component) {
-      this.children = this.children || [];
-      this.children = this.children.filter(item => item !== target);
-      this.setActiveItem();
+    unlinked(target) {
+      this.children = this.children.filter(
+        (item: WechatMiniprogram.Component.TrivialInstance) => item !== target
+      );
+      this.updateChildren();
     }
   },
 
   props: {
-    active: Number,
-    activeColor: String,
+    active: {
+      type: null,
+      observer: 'updateChildren'
+    },
+    activeColor: {
+      type: String,
+      observer: 'updateChildren'
+    },
+    inactiveColor: {
+      type: String,
+      observer: 'updateChildren'
+    },
     fixed: {
+      type: Boolean,
+      value: true
+    },
+    border: {
       type: Boolean,
       value: true
     },
     zIndex: {
       type: Number,
       value: 1
+    },
+    safeAreaInsetBottom: {
+      type: Boolean,
+      value: true
     }
   },
 
-  watch: {
-    active(active: number) {
-      this.currentActive = active;
-      this.setActiveItem();
-    }
-  },
-
-  created() {
-    this.currentActive = this.data.active;
+  beforeCreate() {
+    this.children = [];
   },
 
   methods: {
-    setActiveItem(): Promise<any> {
-      if (!Array.isArray(this.children) || !this.children.length) {
+    updateChildren() {
+      const { children } = this;
+      if (!Array.isArray(children) || !children.length) {
         return Promise.resolve();
       }
+
       return Promise.all(
-        this.children.map((item: Weapp.Component, index: number) =>
-          item.setActive({
-            active: index === this.currentActive,
-            color: this.data.activeColor
-          })
-        )
+        children.map((child: WechatMiniprogram.Component.TrivialInstance) => child.updateFromParent())
       );
     },
 
-    onChange(child: Weapp.Component) {
-      const active = (this.children || []).indexOf(child);
+    onChange(child: WechatMiniprogram.Component.TrivialInstance) {
+      const index = this.children.indexOf(child);
+      const active = child.data.name || index;
 
-      if (active !== this.currentActive && active !== -1) {
-        this.currentActive = active;
-        this.setActiveItem().then(() => {
-          this.$emit('change', active);
-        });
+      if (active !== this.data.active) {
+        this.$emit('change', active);
       }
     }
   }

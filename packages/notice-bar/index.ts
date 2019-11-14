@@ -1,4 +1,5 @@
 import { VantComponent } from '../common/component';
+import { Weapp } from 'definitions/weapp';
 
 const FONT_COLOR = '#ed6a0c';
 const BG_COLOR = '#fffbe8';
@@ -54,7 +55,7 @@ VantComponent({
 
   watch: {
     text() {
-      this.set({}, this.init);
+      this.setData({}, this.init);
     }
   },
 
@@ -74,7 +75,7 @@ VantComponent({
       Promise.all([
         this.getRect('.van-notice-bar__content'),
         this.getRect('.van-notice-bar__wrap')
-      ]).then((rects: wx.BoundingClientRectCallbackResult[]) => {
+      ]).then((rects: WechatMiniprogram.BoundingClientRectCallbackResult[]) => {
         const [contentRect, wrapRect] = rects;
         if (
           contentRect == null ||
@@ -108,7 +109,7 @@ VantComponent({
       this.timer && clearTimeout(this.timer);
       this.timer = null;
 
-      this.set({
+      this.setData({
         animationData: this.resetAnimation
           .translateX(this.wrapWidth)
           .step()
@@ -116,7 +117,7 @@ VantComponent({
       });
 
       setTimeout(() => {
-        this.set({
+        this.setData({
           animationData: this.animation
             .translateX(-this.contentWidth)
             .step()
@@ -133,7 +134,7 @@ VantComponent({
       this.timer && clearTimeout(this.timer);
       this.timer = null;
 
-      this.set({ show: false });
+      this.setData({ show: false });
     },
 
     onClick(event: Weapp.Event) {

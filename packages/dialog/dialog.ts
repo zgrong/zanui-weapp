@@ -5,17 +5,20 @@ type DialogOptions = {
   lang?: string;
   show?: boolean;
   title?: string;
+  width?: string | number;
   zIndex?: number;
-  context?: any;
+  context?: WechatMiniprogram.Page.TrivialInstance | WechatMiniprogram.Component.TrivialInstance;
   message?: string;
   overlay?: boolean;
   selector?: string;
   ariaLabel?: string;
   className?: string;
+  customStyle?: string;
   transition?: string;
   asyncClose?: boolean;
   businessId?: number;
   sessionFrom?: string;
+  overlayStyle?: string;
   appParameter?: string;
   messageAlign?: string;
   sendMessageImg?: string;
@@ -57,10 +60,12 @@ const Dialog: Dialog = options => {
   return new Promise((resolve, reject) => {
     const context = options.context || getContext();
     const dialog = context.selectComponent(options.selector);
+
+    delete options.context;
     delete options.selector;
 
     if (dialog) {
-      dialog.set({
+      dialog.setData({
         onCancel: reject,
         onConfirm: resolve,
         ...options
@@ -75,14 +80,17 @@ const Dialog: Dialog = options => {
 Dialog.defaultOptions = {
   show: true,
   title: '',
+  width: null,
   message: '',
   zIndex: 100,
   overlay: true,
+  selector: '#van-dialog',
   className: '',
   asyncClose: false,
-  messageAlign: '',
   transition: 'scale',
-  selector: '#van-dialog',
+  customStyle: '',
+  messageAlign: '',
+  overlayStyle: '',
   confirmButtonText: '确认',
   cancelButtonText: '取消',
   showConfirmButton: true,

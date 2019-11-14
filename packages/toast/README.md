@@ -1,31 +1,21 @@
-## Toast 轻提示
+# Toast 轻提示
 
-### 使用指南
+### 引入
 
-在 app.json 或 index.json 中引入组件
+在`app.json`或`index.json`中引入组件，详细介绍见[快速上手](#/quickstart#yin-ru-zu-jian)
 
-es6
 ```json
 "usingComponents": {
   "van-toast": "path/to/vant-weapp/dist/toast/index"
 }
 ```
 
-es5
-```json
-"usingComponents": {
-  "van-toast": "path/to/vant-weapp/lib/toast/index"
-}
-```
+## 代码演示
 
-### 代码演示
-
-#### 文字提示
+### 文字提示
 
 ```javascript
 import Toast from 'path/to/vant-weapp/dist/toast/toast';
-// es5
-// vat Toast = require('path/to/vant-weapp/lib/toast/toast');
 
 Toast('我是提示文案，建议不超过十五字~');
 ```
@@ -34,7 +24,7 @@ Toast('我是提示文案，建议不超过十五字~');
 <van-toast id="van-toast" />
 ```
 
-#### 加载提示
+### 加载提示
 
 ```javascript
 Toast.loading({
@@ -43,14 +33,14 @@ Toast.loading({
 });
 ```
 
-#### 成功/失败提示
+### 成功/失败提示
 
 ```javascript
 Toast.success('成功文案');
 Toast.fail('失败文案');
 ```
 
-#### 高级用法
+### 高级用法
 
 ```javascript
 const toast = Toast.loading({
@@ -79,6 +69,8 @@ const timer = setInterval(() => {
 <van-toast id="custom-selector" />
 ```
 
+## API
+
 ### 方法
 
 | 方法名 | 参数 | 返回值 | 介绍 |
@@ -93,19 +85,19 @@ const timer = setInterval(() => {
 
 ### Options
 
-| 参数 | 说明 | 类型 | 默认值 |
-|-----------|-----------|-----------|-------------|
-| type | 提示类型，可选值为 `loading` `success` `fail` `html` | `String` | `text` |
-| position | 位置，可选值为 `top` `middle` `bottom` | `String` | `middle` |
-| message | 内容 | `String` | `''` | - |
-| mask | 是否显示背景蒙层 | `Boolean` | `false` |
-| forbidClick | 是否禁止背景点击 | `Boolean` | `false` |
-| loadingType | 加载图标类型, 可选值为 `spinner` | `String` | `circular` |
-| zIndex | z-index 层级 | `Number` | `1000` |
-| duration | 展示时长(ms)，值为 0 时，toast 不会消失 | `Number` | `3000` |
-| selector | 自定义选择器 | `String` | `van-toast` |
-| context | 选择器的选择范围，可以传入自定义组件的 this 作为上下文 | `Object` | 当前页面 |
-| onClose | 关闭时的回调函数 | `Function` | - |
+| 参数 | 说明 | 类型 | 默认值 | 版本 |
+|-----------|-----------|-----------|-------------|-------------|
+| type | 提示类型，可选值为 `loading` `success` `fail` `html` | *string* | `text` | - |
+| position | 位置，可选值为 `top` `middle` `bottom` | *string* | `middle` | - |
+| message | 内容 | *string* | `''` | - | - |
+| mask | 是否显示遮罩层 | *boolean* | `false` | - |
+| forbidClick | 是否禁止背景点击 | *boolean* | `false` | - |
+| loadingType | 加载图标类型, 可选值为 `spinner` | *string* | `circular` | - |
+| zIndex | z-index 层级 | *number* | `1000` | - |
+| duration | 展示时长(ms)，值为 0 时，toast 不会消失 | *number* | `2000` | - |
+| selector | 自定义选择器 | *string* | `van-toast` | - |
+| context | 选择器的选择范围，可以传入自定义组件的 this 作为上下文 | *object* | 当前页面 | - |
+| onClose | 关闭时的回调函数 | *Function* | - | - |
 
 ### Slot
 

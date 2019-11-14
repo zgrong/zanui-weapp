@@ -2,14 +2,18 @@
   <van-doc
     active="小程序组件"
     :config="config"
+    :github="github"
+    :versions="versions"
     :simulator="simulator"
+    @switch-version="onSwitchVersion"
   >
     <router-view />
   </van-doc>
 </template>
 
 <script>
-import docConfig from './doc.config';
+import pkgJson from '../../package.json';
+import docConfig, { github, versions } from './doc.config';
 
 const UNSHARED = [
   'common',
@@ -19,28 +23,40 @@ const UNSHARED = [
   'transition'
 ];
 
-const MAPPER = {
-  'action-sheet': 'actionsheet'
-};
-
 export default {
+  data() {
+    return {
+      github,
+      versions
+    };
+  },
+
   computed: {
     config() {
       return docConfig;
     },
 
     simulator() {
-      let { path } = this.$route.meta;
+      let prefix = '';
+      const { path } = this.$route.meta;
+
+      if (location.hostname === '0.0.0.0' || location.hostname === 'localhost') {
+        prefix = 'https://youzan.github.io';
+      }
 
       if (!UNSHARED.includes(path)) {
-        if (MAPPER[path]) {
-          path = MAPPER[path];
-        }
-
-        return `https://youzan.github.io/vant/mobile.html?hide_nav=1&weapp=1#/zh-CN/${path}`;
+        return `${prefix}/vant/mobile.html?hide_nav=1&weapp=1#/zh-CN/${path}`;
       }
 
       return `./preview.html#${path}`;
+    }
+  },
+
+  methods: {
+    onSwitchVersion(version) {
+      if (version !== pkgJson.version) {
+        location.href = `https://youzan.github.io/vant-weapp/${version}`;
+      }
     }
   }
 };
@@ -48,15 +64,9 @@ export default {
 
 <style lang="less">
 .van-doc-intro {
-  text-align: center;
+  padding-top: 20px;
   font-family: "Dosis", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
-
-  &__youzan {
-    width: 32px;
-    height: 32px;
-    display: block;
-    margin: 25px 0 0;
-  }
+  text-align: center;
 
   &__logo {
     width: 120px;
@@ -64,14 +74,15 @@ export default {
   }
 
   h2 {
+    font-weight: normal;
     font-size: 32px;
     line-height: 60px;
-    font-weight: normal;
   }
 
   p {
-    font-size: 15px;
+    margin-bottom: 20px;
     color: #455a64;
+    font-size: 15px;
   }
 }
 </style>

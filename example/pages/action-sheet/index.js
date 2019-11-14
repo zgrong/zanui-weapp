@@ -1,22 +1,22 @@
-
 import Page from '../../common/page';
 
 Page({
   data: {
     show1: false,
     show2: false,
-    show3: false
-  },
-
-  onLoad() {
-    this.setData({
-      actions: [
-        { name: '选项' },
-        { name: '分享', subname: '描述信息', openType: 'share' },
-        { loading: true },
-        { name: '禁用选项', disabled: true }
-      ]
-    });
+    show3: false,
+    show4: false,
+    show5: false,
+    action1: [
+      { name: '选项' },
+      { name: '选项' },
+      { name: '选项', subname: '副文本' }
+    ],
+    action2: [
+      { name: '选项', color: '#07c160' },
+      { loading: true },
+      { name: '禁用选项', disabled: true }
+    ]
   },
 
   toggle(type) {
@@ -35,5 +35,13 @@ Page({
 
   toggleActionSheet3() {
     this.toggle('show3');
+  },
+
+  toggleActionSheet4() {
+    this.toggle('show4');
+  },
+
+  toggleActionSheet5() {
+    this.toggle('show5');
   }
 });

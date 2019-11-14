@@ -1,74 +1,95 @@
 const gulp = require('gulp');
 const path = require('path');
 const less = require('gulp-less');
-const ts = require('gulp-typescript');
 const insert = require('gulp-insert');
 const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
-const tsConfig = path.resolve(__dirname, '../tsconfig.json');
-const isProduction = process.env.NODE_ENV === 'production';
-const src = path.join(__dirname, '../packages');
+const src = path.resolve(__dirname, '../packages');
+const icons = path.resolve(__dirname, '../node_modules/@vant/icons');
+
+const libConfig = path.resolve(__dirname, '../tsconfig.lib.json');
+const esConfig = path.resolve(__dirname, '../tsconfig.json');
+const exampleConfig = path.resolve(__dirname, '../tsconfig.example.json');
+
 const libDir = path.resolve(__dirname, '../lib');
 const esDir = path.resolve(__dirname, '../dist');
 const exampleDir = path.resolve(__dirname, '../example/dist');
 
-const libConfig = {
-  target: 'es5',
-  lib: ['es2015', 'es2017', 'dom'],
-  module: 'commonjs',
-  declaration: false
-};
+const lessCompiler = dist =>
+  function compileLess() {
+    return gulp
+      .src(`${src}/**/*.less`)
+      .pipe(less())
+      .pipe(postcss())
+      .pipe(
+        insert.transform((contents, file) => {
+          if (!file.path.includes('packages' + path.sep + 'common')) {
+            contents = `@import '../common/index.wxss';${contents}`;
+          }
+          return contents;
+        })
+      )
+      .pipe(rename({ extname: '.wxss' }))
+      .pipe(gulp.dest(dist));
+  };
 
-const compileLess = dist => () =>
-  gulp
-    .src(`${src}/**/*.less`)
-    .pipe(less())
-    .pipe(postcss())
-    .pipe(
-      insert.transform((contents, file) => {
-        if (!file.path.includes('packages' + path.sep + 'common')) {
-          contents = `@import '../common/index.wxss';` + contents;
-        }
-        return contents;
-      })
-    )
-    .pipe(
-      rename(path => {
-        path.extname = '.wxss';
-      })
-    )
-    .pipe(gulp.dest(dist));
+const tsCompiler = (dist, config) =>
+  async function compileTs() {
+    await exec(`npx tsc -p ${config}`);
+    await exec(`npx tscpaths -p ${config} -s ../packages -o ${dist}`);
+  };
 
-const compileTs = (dist, config) => () => {
-  const tsProject = ts.createProject(tsConfig, config);
-  return tsProject
-    .src()
-    .pipe(tsProject())
-    .on('error', () => {})
-    .pipe(gulp.dest(dist));
-};
+const copier = (dist, ext) =>
+  function copy() {
+    return gulp.src(`${src}/**/*.${ext}`).pipe(gulp.dest(dist));
+  };
 
-const copy = (dist, ext) => () =>
-  gulp.src(`${src}/**/*.${ext}`).pipe(gulp.dest(dist));
-
-const compile = (dist, config) =>
+const staticCopier = dist =>
   gulp.parallel(
-    compileTs(dist, config),
-    compileLess(dist),
-    copy(dist, 'wxml'),
-    copy(dist, 'wxs'),
-    copy(dist, 'json')
+    copier(dist, 'wxml'),
+    copier(dist, 'wxs'),
+    copier(dist, 'json')
   );
 
-if (isProduction) {
-  gulp.series(compile(esDir), compile(libDir, libConfig))();
-} else {
-  compile(exampleDir)();
+const cleaner = path =>
+  function clean() {
+    return exec(`npx rimraf ${path}`);
+  };
 
-  gulp.watch(`${src}/**/*.ts`, compileTs(exampleDir));
-  gulp.watch(`${src}/**/*.less`, compileLess(exampleDir));
-  gulp.watch(`${src}/**/*.wxml`, copy(exampleDir, 'wxml'));
-  gulp.watch(`${src}/**/*.wxs`, copy(exampleDir, 'wxs'));
-  gulp.watch(`${src}/**/*.json`, copy(exampleDir, 'json'));
-}
+const tasks = [
+  ['buildEs', esDir, esConfig],
+  ['buildLib', libDir, libConfig]
+].reduce((prev, [name, ...args]) => {
+  prev[name] = gulp.series(
+    cleaner(...args),
+    gulp.parallel(
+      tsCompiler(...args),
+      lessCompiler(...args),
+      staticCopier(...args)
+    )
+  );
+  return prev;
+}, {});
+
+tasks.buildExample = gulp.series(
+  cleaner(exampleDir),
+  gulp.parallel(
+    tsCompiler(exampleDir, exampleConfig),
+    lessCompiler(exampleDir),
+    staticCopier(exampleDir),
+    () =>
+      gulp.src(`${icons}/**/*`).pipe(gulp.dest(`${exampleDir}/@vant/icons`)),
+    () => {
+      gulp.watch(`${src}/**/*.ts`, tsCompiler(exampleDir, exampleConfig));
+      gulp.watch(`${src}/**/*.less`, lessCompiler(exampleDir));
+      gulp.watch(`${src}/**/*.wxml`, copier(exampleDir, 'wxml'));
+      gulp.watch(`${src}/**/*.wxs`, copier(exampleDir, 'wxs'));
+      gulp.watch(`${src}/**/*.json`, copier(exampleDir, 'json'));
+    }
+  )
+);
+
+module.exports = tasks;

@@ -7,7 +7,7 @@ interface ToastOptions {
   type?: string;
   mask?: boolean;
   zIndex?: number;
-  context?: any;
+  context?: WechatMiniprogram.Component.TrivialInstance | WechatMiniprogram.Page.TrivialInstance;
   position?: string;
   duration?: number;
   selector?: string;
@@ -23,7 +23,7 @@ const defaultOptions = {
   message: '',
   show: true,
   zIndex: 1000,
-  duration: 3000,
+  duration: 2000,
   position: 'middle',
   forbidClick: false,
   loadingType: 'circular',
@@ -42,7 +42,7 @@ function getContext() {
   return pages[pages.length - 1];
 }
 
-function Toast(toastOptions: ToastOptions | ToastMessage): Weapp.Component {
+function Toast(toastOptions: ToastOptions | ToastMessage): WechatMiniprogram.Component.TrivialInstance {
   const options = {
     ...currentOptions,
     ...parseOptions(toastOptions)
@@ -60,7 +60,7 @@ function Toast(toastOptions: ToastOptions | ToastMessage): Weapp.Component {
   delete options.selector;
 
   toast.clear = () => {
-    toast.set({ show: false });
+    toast.setData({ show: false });
 
     if (options.onClose) {
       options.onClose();
@@ -68,7 +68,7 @@ function Toast(toastOptions: ToastOptions | ToastMessage): Weapp.Component {
   };
 
   queue.push(toast);
-  toast.set(options);
+  toast.setData(options);
   clearTimeout(toast.timer);
 
   if (options.duration > 0) {
@@ -81,7 +81,7 @@ function Toast(toastOptions: ToastOptions | ToastMessage): Weapp.Component {
   return toast;
 }
 
-const createMethod = type => (options: ToastOptions | ToastMessage) =>
+const createMethod = (type: string) => (options: ToastOptions | ToastMessage) =>
   Toast({
     type,
     ...parseOptions(options)

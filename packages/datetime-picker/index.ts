@@ -18,7 +18,7 @@ function padZero(val: string | number): string {
 
 function times(n: number, iteratee: (index: number) => string): string[] {
   let index = -1;
-  const result = Array(n);
+  const result = Array(n < 0 ? 0 : n);
 
   while (++index < n) {
     result[index] = iteratee(index);
@@ -45,11 +45,8 @@ VantComponent({
 
   props: {
     ...pickerProps,
-    formatter: {
-      type: Function,
-      value: defaultFormatter
-    },
     value: null,
+    filter: null,
     type: {
       type: String,
       value: 'datetime'
@@ -57,6 +54,10 @@ VantComponent({
     showToolbar: {
       type: Boolean,
       value: true
+    },
+    formatter: {
+      type: null,
+      value: defaultFormatter
     },
     minDate: {
       type: Number,
@@ -90,52 +91,72 @@ VantComponent({
   },
 
   watch: {
-    value(val: any) {
+    value: 'updateValue',
+    type: 'updateValue',
+    minDate: 'updateValue',
+    maxDate: 'updateValue',
+    minHour: 'updateValue',
+    maxHour: 'updateValue',
+    minMinute: 'updateValue',
+    maxMinute: 'updateValue'
+  },
+
+  methods: {
+    updateValue() {
       const { data } = this;
-      val = this.correctValue(val);
+      const val = this.correctValue(this.data.value);
       const isEqual = val === data.innerValue;
       if (!isEqual) {
         this.updateColumnValue(val).then(() => {
           this.$emit('input', val);
         });
+      } else {
+        this.updateColumns();
       }
     },
-    type: 'updateColumns',
-    minHour: 'updateColumns',
-    maxHour: 'updateColumns',
-    minMinute: 'updateColumns',
-    maxMinute: 'updateColumns'
-  },
 
-  methods: {
     getPicker() {
       if (this.picker == null) {
-        const picker = (this.picker = this.selectComponent(
-          '.van-datetime-picker'
-        ));
+        this.picker = this.selectComponent('.van-datetime-picker');
+
+        const { picker } = this;
         const { setColumnValues } = picker;
         picker.setColumnValues = (...args: any) =>
           setColumnValues.apply(picker, [...args, false]);
       }
+
       return this.picker;
     },
 
     updateColumns() {
       const { formatter = defaultFormatter } = this.data;
-      const results = this.getRanges().map(({ type, range }, index) => {
-        const values = times(range[1] - range[0] + 1, index => {
-          let value = range[0] + index;
-          value = type === 'year' ? `${value}` : padZero(value);
-          return formatter(type, value);
-        });
-
-        return { values };
-      });
+      const results = this.getOriginColumns().map(column => ({
+        values: column.values.map(value => formatter(column.type, value))
+      }));
 
       return this.set({ columns: results });
     },
 
-    getRanges(): object[] {
+    getOriginColumns() {
+      const { filter } = this.data;
+      const results = this.getRanges().map(({ type, range }) => {
+        let values = times(range[1] - range[0] + 1, index => {
+          let value = range[0] + index;
+          value = type === 'year' ? `${value}` : padZero(value);
+          return value;
+        });
+
+        if (filter) {
+          values = filter(type, values);
+        }
+
+        return { type, values };
+      });
+
+      return results;
+    },
+
+    getRanges() {
       const { data } = this;
       if (data.type === 'time') {
         return [
@@ -193,7 +214,7 @@ VantComponent({
       return result;
     },
 
-    correctValue(value) {
+    correctValue(value: any) {
       const { data } = this;
       // validate value
       const isDateType = data.type !== 'time';
@@ -220,7 +241,7 @@ VantComponent({
       return value;
     },
 
-    getBoundary(type: string, innerValue: number): object {
+    getBoundary(type: string, innerValue: number) {
       const value = new Date(innerValue);
       const boundary = new Date(this.data[`${type}Date`]);
       const year = boundary.getFullYear();
@@ -262,11 +283,11 @@ VantComponent({
       this.$emit('cancel');
     },
 
-    onConfirm(): void {
+    onConfirm() {
       this.$emit('confirm', this.data.innerValue);
     },
 
-    onChange(): void {
+    onChange() {
       const { data } = this;
       let value;
 
@@ -274,7 +295,7 @@ VantComponent({
 
       if (data.type === 'time') {
         const indexes = picker.getIndexes();
-        value = `${indexes[0] + data.minHour}:${indexes[1] + data.minMinute}`;
+        value = `${+data.columns[0].values[indexes[0]]}:${+data.columns[1].values[indexes[1]]}`;
       } else {
         const values = picker.getValues();
         const year = getTrueValue(values[0]);

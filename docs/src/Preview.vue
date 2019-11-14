@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="preview-image" :src="image">
+    <img :class="['preview-image', `preview-image--${imageName}`]" :src="image">
     <div class="preview-popup">
       <div class="preview-content">
         <img src="https://img.yzcdn.cn/vant-weapp/qrcode-201808101114.jpg">
@@ -13,15 +13,17 @@
 <script>
 const PREFIX = 'https://img.yzcdn.cn/vant-weapp/';
 const MAP = {
-  index: 'index-201904170551.png',
+  index: 'index-20190715.png',
   transition: 'transition-20180821.png'
 };
 
 export default {
   computed: {
+    imageName() {
+      return location.hash.slice(1);
+    },
     image() {
-      const hash = location.hash.slice(1);
-      return PREFIX + (MAP[hash] || MAP.index);
+      return PREFIX + (MAP[this.imageName] || MAP.index);
     }
   }
 };
@@ -31,31 +33,33 @@ export default {
 body {
   margin: 0;
   color: #333;
+  font-family: 'PingFang SC', Helvetica, 'STHeiti STXihei', 'Microsoft YaHei', Tohoma, Arial, sans-serif;
   line-height: 1;
   background-color: #f2f3f5;
-  font-family: 'PingFang SC', Helvetica, 'STHeiti STXihei', 'Microsoft YaHei',
-    Tohoma, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 .preview {
   &-image {
-    width: 100%;
     display: block;
-    margin-top: -62px;
+    width: 100%;
+
+    &--transition {
+      margin-top: -62px;
+    }
   }
 
   &-popup {
-    opacity: 0;
-    z-index: 1;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, .95);
-    transition: .3s;
     text-align: center;
+    background-color: rgba(255, 255, 255, .95);
+    opacity: 0;
+    transition: .3s;
 
     &:hover {
       opacity: 1;
@@ -63,27 +67,27 @@ body {
   }
 
   &-content {
-    left: 0;
+    position: absolute;
     top: 50%;
+    left: 0;
     width: 100%;
     height: 200px;
-    position: absolute;
     text-align: center;
     transform: translateY(-60%);
     user-select: none;
 
     img {
+      display: inline-block;
       width: 180px;
       height: 180px;
       margin-bottom: 15px;
-      display: inline-block;
     }
 
     p {
       margin: 0;
       color: #34495e;
-      line-height: 1.5;
       font-size: 16px;
+      line-height: 1.5;
     }
   }
 }

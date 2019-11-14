@@ -1,17 +1,29 @@
 import { VantComponent } from '../common/component';
+import { addUnit } from '../common/utils';
+
+function emit(target: WechatMiniprogram.Component.TrivialInstance, value: boolean | any[]) {
+  target.$emit('input', value);
+  target.$emit('change', value);
+}
 
 VantComponent({
   field: true,
 
   relation: {
     name: 'checkbox-group',
-    type: 'ancestor'
+    type: 'ancestor',
+    linked(target) {
+      this.parent = target;
+    },
+    unlinked() {
+      this.parent = null;
+    }
   },
 
   classes: ['icon-class', 'label-class'],
 
   props: {
-    value: null,
+    value: Boolean,
     disabled: Boolean,
     useIconSlot: Boolean,
     checkedColor: String,
@@ -20,55 +32,67 @@ VantComponent({
     shape: {
       type: String,
       value: 'round'
+    },
+    iconSize: {
+      type: null,
+      observer: 'setSizeWithUnit'
     }
   },
 
+  data: {
+    sizeWithUnit: '20px'
+  },
+
   methods: {
-    emitChange(value) {
-      const parent = this.getRelationNodes('../checkbox-group/index')[0];
-      if (parent) {
-        this.setParentValue(parent, value);
+    emitChange(value: boolean) {
+      if (this.parent) {
+        this.setParentValue(this.parent, value);
       } else {
-        this.$emit('input', value);
-        this.$emit('change', value);
+        emit(this, value);
       }
     },
 
     toggle() {
-      if (!this.data.disabled) {
-        this.emitChange(!this.data.value);
+      const { disabled, value } = this.data;
+      if (!disabled) {
+        this.emitChange(!value);
       }
     },
 
     onClickLabel() {
-      if (!this.data.disabled && !this.data.labelDisabled) {
-        this.emitChange(!this.data.value);
+      const { labelDisabled, disabled, value } = this.data;
+      if (!disabled && !labelDisabled) {
+        this.emitChange(!value);
       }
     },
 
-    setParentValue(parent, value) {
+    setParentValue(parent: WechatMiniprogram.Component.TrivialInstance, value: boolean) {
       const parentValue = parent.data.value.slice();
       const { name } = this.data;
+      const { max } = parent.data;
 
       if (value) {
-        if (parent.data.max && parentValue.length >= parent.data.max) {
+        if (max && parentValue.length >= max) {
           return;
         }
-        /* istanbul ignore else */
+
         if (parentValue.indexOf(name) === -1) {
           parentValue.push(name);
-          parent.$emit('input', parentValue);
-          parent.$emit('change', parentValue);
+          emit(parent, parentValue);
         }
       } else {
         const index = parentValue.indexOf(name);
-        /* istanbul ignore else */
         if (index !== -1) {
           parentValue.splice(index, 1);
-          parent.$emit('input', parentValue);
-          parent.$emit('change', parentValue);
+          emit(parent, parentValue);
         }
       }
-    }
+    },
+
+    setSizeWithUnit(size: string | number): void {
+      this.set({
+        sizeWithUnit: addUnit(size)
+      });
+    },
   }
 });
